@@ -1,0 +1,21 @@
+- Added firebase error codes to forms for invalid user, incorrect password and user exists
+- removed validate hook
+- implemented React hook form and updated sign up page. Form logic is now fully in the form components. Added sign in page/form
+- updated routes, added an unfinished sign in page. Set a route outlet for the account pages
+- added form validation and redirect routes based on user authentication
+- Fully implemented Firebase sign in and context auth. Updated react-router-dom imports to correspond with v6 exports. Created private routing for unauthorised access. Created an auth provider wrapper component
+- upload changelog
+- Implemented Firebase and created SignUpForm container
+- updated changelog script in package.json
+- updated package.json with script to create log of commits
+- Updated changelog
+- Installed webpack-dotenv and updated webpack config with plugins object for dotenv
+- Merge branch 'main' of https://github.com/joejcox/react-firebase-auth into main
+- Updated README with information on excluding React import
+- Update README.md
+- Update README.md
+- Update README.md
+- updated readme
+- updated readme
+- updated readme
+- Base project set up of React from scratch, installation of dependencies, confirmed everything is running correctly. Included README which documents everything so far

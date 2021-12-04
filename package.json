@@ -1,38 +1,57 @@
 {
-  "name": "block",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.0.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "name": "block",
+    "version": "1.0.0",
+    "private": true,
+    "author": "Joe Cox",
+    "devDependencies": {
+        "css-loader": "^6.5.1",
+        "dotenv-webpack": "^7.0.3",
+        "file-loader": "^6.2.0",
+        "postcss": "^8.3.11",
+        "postcss-loader": "^6.2.0",
+        "style-loader": "^3.3.1"
+    },
+    "dependencies": {
+        "@testing-library/jest-dom": "^5.11.4",
+        "@testing-library/react": "^11.1.0",
+        "@testing-library/user-event": "^12.1.10",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "react-scripts": "4.0.3",
+        "web-vitals": "^1.0.1",
+        "bulma": "^0.9.3",
+        "firebase": "^9.4.1",
+        "postcss-preset-env": "^6.7.0",
+        "react-helmet-async": "^1.1.2",
+        "react-hook-form": "^7.20.2",
+        "react-hot-loader": "^4.13.0",
+        "react-icons": "^4.3.1",
+        "react-modal": "^3.14.4",
+        "react-router-dom": "^6.0.2"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "log": "git log --pretty=\"- %s\" > CHANGELOG.md"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
 }
