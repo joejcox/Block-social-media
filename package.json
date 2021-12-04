@@ -3,14 +3,6 @@
     "version": "1.0.0",
     "private": true,
     "author": "Joe Cox",
-    "devDependencies": {
-        "css-loader": "^6.5.1",
-        "dotenv-webpack": "^7.0.3",
-        "file-loader": "^6.2.0",
-        "postcss": "^8.3.11",
-        "postcss-loader": "^6.2.0",
-        "style-loader": "^3.3.1"
-    },
     "dependencies": {
         "@testing-library/jest-dom": "^5.11.4",
         "@testing-library/react": "^11.1.0",
