@@ -1,5 +1,11 @@
 # Learning Firebase + Context in React
 
+
+## Edit
+I switched to bootstrapping the project with create-react-app due to issues deploying to Vercel
+
+---
+
 So I was looking to pick up Firebase using their JavaScript SDK while I was also learning React's Context functionality as this has been something I have put off for some time.
 
 When approaching this project I thought I'd start with a blank canvas, no use of create-react-app, just completely from scratch.
@@ -254,7 +260,3 @@ After searching around a bit, it turns out this is happening as I did not have [
 So the reason this plugin is required is because `Async functions` are abstraction on top of generators. While they're supported in the latest versions of Node (10+), when using Babel we need to add an extra layer that transforms generators to change ES6 in to ES5 at runtime. This is because their syntax is not backwards compatible.
 
 I also had some issues with `react-router-dom` - I hadn't realised that a [new major version was out](https://reactrouter.com/docs/en/v6/api#routing). It no longer uses things like `<Redirect />` or `<Switch />` but instead uses `useNavigation`, `<Navigation />`, and `<Routes />` instead. I have used the docs to find all the current exports.
-
-## Edit
-
-I switched to bootstrapping the project with create-react-app due to issues deploying to Vercel
