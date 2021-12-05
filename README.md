@@ -1,5 +1,8 @@
-# Learning Firebase + Context in React
+# Block.
 
+A community for writers to release creativity and also find inspiration.
+
+[Live Demo](https://block.joecoxdev.com/)
 
 ## Edit
 I switched to bootstrapping the project with create-react-app due to issues deploying to Vercel
