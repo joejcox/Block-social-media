@@ -43,8 +43,12 @@ const UserPosts = ({ author }) => {
 
   if (!posts) return <div className="no-posts">User has no posts</div>
 
-  const renderPosts = posts.map(({ id, data }) => {
-    return (
+  const RenderPosts = () => {
+    const sortedPosts = posts.sort(
+      (a, b) => new Date(b.data.date.seconds) - new Date(a.data.date.seconds)
+    )
+
+    return sortedPosts.map(({ id, data }) => (
       <article className="post-preview" key={id}>
         <header className="post-header">
           <h2 className="title is-3">
@@ -66,14 +70,18 @@ const UserPosts = ({ author }) => {
         </header>
         <p className="post-excerpt">{data.content.excerpt}</p>
         <footer className="post-footer">
-          Posted by <Link to={`/user/${data.author}`}>{data.author}</Link> |{" "}
-          <Link to={`/user/${data.author}/posts/${data.slug}`}>View Post</Link>
+          <Link
+            className="button is-info"
+            to={`/user/${data.author}/posts/${data.slug}`}
+          >
+            View Post
+          </Link>
         </footer>
       </article>
-    )
-  })
+    ))
+  }
 
-  return <div className="posts-list">{renderPosts}</div>
+  return <div className="posts-list">{<RenderPosts />}</div>
 }
 
 export default UserPosts

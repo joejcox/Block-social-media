@@ -1,8 +1,5 @@
 import { useState, useEffect, createContext } from "react"
-import {
-  /*doc, setDoc, getDoc,*/ collection,
-  getDocs,
-} from "firebase/firestore"
+import { collection, getDocs, addDoc } from "firebase/firestore"
 import { db } from "lib/firebase"
 import useAuth from "hooks/useAuth"
 
@@ -11,6 +8,7 @@ export const UserContext = createContext({
   username: String,
   uid: String,
   avatar: String,
+  createPost: Function,
 })
 
 const UserContextProvider = ({ children }) => {
@@ -37,11 +35,52 @@ const UserContextProvider = ({ children }) => {
     setData()
   }, [currentUser])
 
+  const convertToSlug = (slug) => {
+    return slug
+      .toLowerCase()
+      .replace(/[^\w ]+/g, "")
+      .replace(/ +/g, "-")
+  }
+
+  const createPost = async (
+    author,
+    author_id,
+    body,
+    excerpt,
+    image,
+    title,
+    id,
+    tags
+  ) => {
+    const formattedSlug = convertToSlug(title)
+
+    try {
+      const docRef = await addDoc(collection(db, "posts"), {
+        author: author,
+        author_id: author_id,
+        content: {
+          body: body,
+          excerpt: excerpt,
+          image: image,
+          title: title,
+        },
+        date: new Date(),
+        id: id,
+        slug: formattedSlug,
+        tags: tags,
+      })
+      console.log(`Post created successfully: ${docRef.id}`)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const value = {
     userData,
     username,
     uid,
     avatar,
+    createPost,
   }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
