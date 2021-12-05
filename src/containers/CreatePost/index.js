@@ -16,16 +16,18 @@ const CreatePost = () => {
   } = useForm()
 
   const onSubmit = async (data) => {
-    await createPost(
-      username,
-      uid,
-      "This is the body text",
-      "This is just an excerpt",
-      "",
-      data.title,
-      uuidv4(),
-      ["entertainment", "lifestyle", "inspiration", "poem"]
-    )
+    let excerpt
+    if (data.body.length > 55) {
+      excerpt = (await data.body.substring(0, 55)) + "..."
+    } else {
+      excerpt = await data.body
+    }
+    createPost(username, uid, data.body, excerpt, "", data.title, uuidv4(), [
+      "entertainment",
+      "lifestyle",
+      "inspiration",
+      "poem",
+    ])
   }
 
   const { isSubmitting } = useFormState({ control })
@@ -42,7 +44,7 @@ const CreatePost = () => {
           <div className="field">
             <input
               type="text"
-              className="input formInput"
+              className="input rounded"
               placeholder="Post title"
               {...register("title", {
                 required: {
@@ -58,6 +60,28 @@ const CreatePost = () => {
             {errors.title && (
               <span className="is-block has-text-danger is-size-7">
                 {errors.title.message}
+              </span>
+            )}
+          </div>
+          <div className="control">
+            <textarea
+              className="textarea rounded"
+              placeholder="Once upon a time..."
+              rows="10"
+              {...register("body", {
+                required: {
+                  value: true,
+                  message: "Post body must contain text",
+                },
+                minLength: {
+                  value: 5,
+                  message: "Post must contain more than 5 characters",
+                },
+              })}
+            ></textarea>
+            {errors.body && (
+              <span className="is-block has-text-danger is-size-7">
+                {errors.body.message}
               </span>
             )}
           </div>

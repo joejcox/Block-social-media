@@ -48,7 +48,7 @@ const Post = () => {
   return (
     <section className="section single-post">
       <div className="container">
-        <header className="single-post--header">
+        <header className="single-post--header post-header">
           <h1 className="title is-1">{title}</h1>
           <div className="tags">
             <Tags data={tags} />

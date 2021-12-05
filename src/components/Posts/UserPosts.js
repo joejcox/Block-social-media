@@ -1,45 +1,48 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { collection, getDocs } from "firebase/firestore"
+import { collection, onSnapshot } from "firebase/firestore"
 import { db } from "lib/firebase"
-import PostPreviewSkeleton from "components/Skeletons/PostPreviewSkeleton"
+import Tags from "components/Tags"
+import AllPostsSkeleton from "components/Skeletons/AllPostsSkeleton"
+import useAuth from "hooks/useAuth"
+import useFirestore from "hooks/useFirestore"
 
 const UserPosts = ({ author }) => {
+  const { currentUser } = useAuth()
+  const { deletePost } = useFirestore()
   const [loading, setLoading] = useState(true)
   const [posts, setPosts] = useState(null)
 
   useEffect(() => {
-    const getPosts = async () => {
-      let postsArray = []
-      const querySnapshot = await getDocs(collection(db, "posts"))
-      querySnapshot.forEach((post) => {
-        const data = post.data()
-        if (data.author === author) {
-          postsArray.push({
-            id: data.id,
-            data: data,
-          })
-        }
-      })
+    const unsubscribe = onSnapshot(
+      collection(db, "posts"),
+      (docs) => {
+        let postsArray = []
 
-      setPosts(postsArray)
-      setLoading(false)
-    }
+        docs.forEach((post) => {
+          const data = post.data()
+          if (data.author === author) {
+            postsArray.push({
+              id: post.id,
+              post_id: data.id,
+              data: data,
+            })
+          }
+        })
 
-    getPosts()
+        setPosts(postsArray)
+      },
+      (error) => {
+        console.log(error)
+      }
+    )
+
+    setLoading(false)
+
+    return () => unsubscribe()
   }, [author])
 
-  if (loading)
-    return (
-      <section className="section posts">
-        <div className="container">
-          <span className="title is-1 skeleton"></span>
-          <div className="posts-list">
-            <PostPreviewSkeleton num={2} />
-          </div>
-        </div>
-      </section>
-    )
+  if (loading) return <AllPostsSkeleton />
 
   if (!posts) return <div className="no-posts">User has no posts</div>
 
@@ -48,8 +51,8 @@ const UserPosts = ({ author }) => {
       (a, b) => new Date(b.data.date.seconds) - new Date(a.data.date.seconds)
     )
 
-    return sortedPosts.map(({ id, data }) => (
-      <article className="post-preview" key={id}>
+    return sortedPosts.map(({ id, post_id, data }) => (
+      <article className="post-preview" key={post_id}>
         <header className="post-header">
           <h2 className="title is-3">
             <Link to={`/user/${data.author}/posts/${data.slug}`}>
@@ -57,15 +60,7 @@ const UserPosts = ({ author }) => {
             </Link>
           </h2>
           <div className="tags">
-            {data.tags.map((tag, index) => (
-              <Link
-                className="tag is-dark"
-                to={`/tag/${tag}`}
-                key={`${id}-${index}`}
-              >
-                {tag}
-              </Link>
-            ))}
+            <Tags data={data.tags} />
           </div>
         </header>
         <p className="post-excerpt">{data.content.excerpt}</p>
@@ -76,6 +71,14 @@ const UserPosts = ({ author }) => {
           >
             View Post
           </Link>
+          {currentUser && currentUser.uid === data.author_id ? (
+            <button
+              className="button is-danger ml-space"
+              onClick={() => deletePost(id)}
+            >
+              Remove Post
+            </button>
+          ) : null}
         </footer>
       </article>
     ))

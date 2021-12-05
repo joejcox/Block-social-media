@@ -340,3 +340,11 @@ h2.skeleton {
 .post-footer.skeleton span {
     max-width: 100px;
 }
+
+input.button {
+    margin-top: 2rem;
+}
+
+.rounded {
+    border-radius: 10px;
+}

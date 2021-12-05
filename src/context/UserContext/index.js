@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext } from "react"
-import { collection, getDocs, addDoc } from "firebase/firestore"
+import { collection, getDocs, addDoc, doc, deleteDoc } from "firebase/firestore"
 import { db } from "lib/firebase"
 import useAuth from "hooks/useAuth"
 
@@ -9,6 +9,7 @@ export const UserContext = createContext({
   uid: String,
   avatar: String,
   createPost: Function,
+  deletePost: Function,
 })
 
 const UserContextProvider = ({ children }) => {
@@ -71,8 +72,13 @@ const UserContextProvider = ({ children }) => {
       })
       console.log(`Post created successfully: ${docRef.id}`)
     } catch (error) {
-      console.log(error)
+      return error
     }
+  }
+
+  const deletePost = async (id) => {
+    await deleteDoc(doc(db, "posts", id))
+    return true
   }
 
   const value = {
@@ -81,6 +87,7 @@ const UserContextProvider = ({ children }) => {
     uid,
     avatar,
     createPost,
+    deletePost,
   }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
