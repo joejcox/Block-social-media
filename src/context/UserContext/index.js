@@ -2,6 +2,7 @@ import { useState, useEffect, createContext } from "react"
 import { collection, getDocs, addDoc, doc, deleteDoc } from "firebase/firestore"
 import { db } from "lib/firebase"
 import useAuth from "hooks/useAuth"
+import { useNavigate } from "react-router-dom"
 
 export const UserContext = createContext({
   userData: Object,
@@ -13,6 +14,7 @@ export const UserContext = createContext({
 })
 
 const UserContextProvider = ({ children }) => {
+  const navigate = useNavigate()
   const [userData, setUserData] = useState(null)
   const [username, setUsername] = useState(null)
   const [avatar, setAvatar] = useState(null)
@@ -70,7 +72,9 @@ const UserContextProvider = ({ children }) => {
         slug: formattedSlug,
         tags: tags,
       })
+
       console.log(`Post created successfully: ${docRef.id}`)
+      navigate(`/user/${author}/posts/${formattedSlug}`)
     } catch (error) {
       return error
     }
