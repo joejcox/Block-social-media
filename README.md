@@ -12,10 +12,10 @@ A community for writers to release creativity and also find inspiration.
 - Jest
 
 ## Project Setup
-`yarn install`
+```yarn install```
 
 ## Run Project Locally
-`yarn start`
+```yarn start```
 
 ## Edit
 I switched to bootstrapping the project with create-react-app due to issues deploying to Vercel
