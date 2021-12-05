@@ -257,6 +257,12 @@ html {
     font-size: 0.9rem;
 }
 
+button.user-nav--link {
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
 .user-nav--identity:hover,
 .user-nav--link:hover {
     background: hsl(0, 16%, 96%);
