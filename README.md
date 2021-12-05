@@ -2,7 +2,17 @@
 
 A community for writers to release creativity and also find inspiration.
 
-##[Live Demo](https://block.joecoxdev.com/)
+## Live Demo
+[https://block.joecoxdev.com/](https://block.joecoxdev.com/)
+
+--
+
+## Tech Stack
+
+>React JS (create-react-app)
+>Firebase Auth / Firestore / Storage
+
+--
 
 ## Edit
 I switched to bootstrapping the project with create-react-app due to issues deploying to Vercel
