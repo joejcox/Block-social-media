@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { collection, getDocs } from "firebase/firestore"
 import { db } from "lib/firebase"
-import PostPreviewSkeleton from "components/Skeletons/PostPreviewSkeleton"
+import AllPostsSkeleton from "components/Skeletons/AllPostsSkeleton"
+import Tags from "components/Tags"
 
 const Posts = () => {
   const [loading, setLoading] = useState(true)
@@ -26,17 +27,7 @@ const Posts = () => {
     getPosts()
   }, [])
 
-  if (loading)
-    return (
-      <section className="section posts">
-        <div className="container">
-          <h1 className="title is-1 skeleton"></h1>
-          <div className="posts-list">
-            <PostPreviewSkeleton num={3} />
-          </div>
-        </div>
-      </section>
-    )
+  if (loading) return <AllPostsSkeleton />
 
   if (!posts) return <div className="no-posts">No posts to show</div>
 
@@ -44,23 +35,19 @@ const Posts = () => {
     return (
       <article className="post-preview" key={id}>
         <header className="post-header">
-          <h2 className="title is-3">{data.content.title}</h2>
+          <h2 className="title is-3">
+            <Link to={`/user/${data.author}/posts/${data.slug}`}>
+              {data.content.title}
+            </Link>
+          </h2>
           <div className="tags">
-            {data.tags.map((tag, index) => (
-              <Link
-                className="tag is-dark"
-                to={`/tag/${tag}`}
-                key={`${id}-${index}`}
-              >
-                {tag}
-              </Link>
-            ))}
+            <Tags data={data.tags} />
           </div>
         </header>
         <p className="post-excerpt">{data.content.excerpt}</p>
         <footer className="post-footer">
           Posted by <Link to={`/user/${data.author}`}>{data.author}</Link> |{" "}
-          <Link to={`/posts/${data.author}/${data.slug}`}>View Post</Link>
+          <Link to={`/user/${data.author}/posts/${data.slug}`}>View Post</Link>
         </footer>
       </article>
     )

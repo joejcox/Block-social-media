@@ -5,7 +5,7 @@ const PostPreviewSkeleton = ({ num = 1 }) => {
     structure.push(
       <article className="post-preview" key={i}>
         <header className="post-header">
-          <h2 className="title is-3 skeleton"></h2>
+          <span className="title is-3 skeleton"></span>
           <div className="tags skeleton">
             <span className="tag"></span>
             <span className="tag"></span>

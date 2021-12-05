@@ -29,7 +29,7 @@ const ProfileHeader = ({ data, loading }) => {
         {data.data.profileBg && (
           <img
             src={data.data.profileBg}
-            alt={`${data.username}'s profile background image'`}
+            alt={`${data.username}'s profile background'`}
           />
         )}
       </div>

@@ -4,6 +4,10 @@ const useModal = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
 
   const customStyles = {
+    overlay: {
+      background: "hsla(0, 0%, 20%, 80%)",
+      zIndex: 999,
+    },
     content: {
       top: "50%",
       left: "50%",
@@ -49,5 +53,8 @@ import useModal from "Hooks/useModal"
         <button onClick={closeModal}>close</button>
         <p>HELLO THIS IS A MODAL!</p>
       </Modal>
+
+
+      docs: https://reactcommunity.org/react-modal/styles/classes/
 
       */

@@ -33,9 +33,9 @@ const UserPosts = ({ author }) => {
     return (
       <section className="section posts">
         <div className="container">
-          <h1 className="title is-1 skeleton"></h1>
+          <span className="title is-1 skeleton"></span>
           <div className="posts-list">
-            <PostPreviewSkeleton num={3} />
+            <PostPreviewSkeleton num={2} />
           </div>
         </div>
       </section>
@@ -48,7 +48,7 @@ const UserPosts = ({ author }) => {
       <article className="post-preview" key={id}>
         <header className="post-header">
           <h2 className="title is-3">
-            <Link to={`/posts/${data.author}/${data.slug}`}>
+            <Link to={`/user/${data.author}/posts/${data.slug}`}>
               {data.content.title}
             </Link>
           </h2>
@@ -67,7 +67,7 @@ const UserPosts = ({ author }) => {
         <p className="post-excerpt">{data.content.excerpt}</p>
         <footer className="post-footer">
           Posted by <Link to={`/user/${data.author}`}>{data.author}</Link> |{" "}
-          <Link to={`/posts/${data.author}/${data.slug}`}>View Post</Link>
+          <Link to={`/user/${data.author}/posts/${data.slug}`}>View Post</Link>
         </footer>
       </article>
     )

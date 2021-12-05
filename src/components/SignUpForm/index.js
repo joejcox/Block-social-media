@@ -1,9 +1,7 @@
-import { useState } from "react"
 import { useForm, useFormState } from "react-hook-form"
 import useAuth from "hooks/useAuth"
 
 const SignUpForm = () => {
-  const [userExists, setUserExists] = useState(null)
   const { signUp, error } = useAuth()
   const {
     register,
@@ -15,6 +13,8 @@ const SignUpForm = () => {
 
   const onSubmit = async (data) => {
     signUp(data.email, data.password, data.username)
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error))
   }
 
   const { isSubmitting } = useFormState({ control })
@@ -25,9 +25,6 @@ const SignUpForm = () => {
       onSubmit={(e) => e.preventDefault()}
       autoComplete="off"
     >
-      {userExists && (
-        <p className="form-top-error has-text-danger">{userExists}</p>
-      )}
       {error && <p className="form-top-error has-text-danger">{error}</p>}
       <div className="field">
         <input

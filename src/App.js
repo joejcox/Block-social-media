@@ -9,6 +9,7 @@ import Profile from "containers/Profile"
 import PrivateRoute from "containers/PrivateRoute"
 import { BrowserRouter as Router } from "react-router-dom"
 import Modal from "react-modal"
+import Post from "components/Post"
 
 Modal.setAppElement("#root")
 
@@ -30,8 +31,8 @@ const App = () => {
             }
           />
           <Route path="/user/:user" element={<Profile />} />
-          {/* <Route path="/user/posts" element={<Posts />} />
-          <Route path="/user/posts/:postId" element={<Post />} /> */}
+          <Route path="/user/:user/posts/:post" element={<Post />} />
+          {/*<Route path="/user/posts/:postId" element={<Post />} /> */}
           <Route path="/" element={<Home />} />
           <Route path="*" element={<div>404</div>} />
         </Routes>
