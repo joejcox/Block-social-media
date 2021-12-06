@@ -92,7 +92,9 @@ const SignInForm = () => {
           </span>
         )}
       </div>
-      <Link to="/account/reset-password">Forgotten password?</Link>
+      <div className="link">
+        <Link to="/account/reset-password">Forgotten password?</Link>
+      </div>
       <input
         type="submit"
         className="button is-info"
