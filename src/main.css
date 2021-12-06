@@ -348,3 +348,25 @@ input.button {
 .rounded {
     border-radius: 10px;
 }
+
+.password-reset .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-reset-form {
+    background: white;
+    padding: 4rem;
+    border-radius: 10px;
+    max-width: 500px;
+}
+
+.password-reset-form button {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.password-reset-form span {
+    margin-bottom: 1rem;
+}

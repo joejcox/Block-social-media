@@ -11,6 +11,7 @@ import { BrowserRouter as Router } from "react-router-dom"
 import Modal from "react-modal"
 import Post from "components/Post"
 import CreatePost from "containers/CreatePost"
+import PasswordReset from "containers/PasswordReset"
 
 Modal.setAppElement("#root")
 
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/account" element={<FormPage />}>
             <Route path="/account/sign-up" element={<SignUp />} />
             <Route path="/account/sign-in" element={<SignIn />} />
+            <Route path="/account/reset-password" element={<PasswordReset />} />
           </Route>
           <Route
             path="/dashboard"

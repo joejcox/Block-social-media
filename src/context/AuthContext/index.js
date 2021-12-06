@@ -3,6 +3,7 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
   signOut,
 } from "firebase/auth"
 import auth from "lib/firebase"
@@ -14,6 +15,7 @@ export const AuthContext = createContext({
   signUp: Promise,
   signIn: Promise,
   logout: Promise,
+  resetPassword: Promise,
   error: String,
   displayName: String,
 })
@@ -92,11 +94,25 @@ const AuthContextProvider = ({ children }) => {
     }
   }
 
+  const resetPassword = async (email) => {
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        // Password reset email sent!
+        // ..
+      })
+      .catch((error) => {
+        const errorCode = error.code
+        const errorMessage = error.message
+        return { errorCode, errorMessage }
+      })
+  }
+
   const value = {
     currentUser,
     signUp,
     signIn,
     logout,
+    resetPassword,
     error,
     displayName,
   }

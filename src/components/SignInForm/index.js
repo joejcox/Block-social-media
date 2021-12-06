@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useForm, useFormState } from "react-hook-form"
 import useAuth from "hooks/useAuth"
+import { Link } from "react-router-dom"
 
 const SignInForm = () => {
   const [firebaseError, setFirebaseError] = useState(null)
@@ -91,11 +92,12 @@ const SignInForm = () => {
           </span>
         )}
       </div>
+      <Link to="/account/reset-password">Forgotten password?</Link>
       <input
         type="submit"
         className="button is-info"
-        value={isSubmitting ? "Signing In..." : "Sign In"}
         disabled={isSubmitting}
+        value={isSubmitting ? "Signing In..." : "Sign In"}
       />
     </form>
   )

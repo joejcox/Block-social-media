@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { collection, getDocs } from "firebase/firestore"
+import { collection, onSnapshot } from "firebase/firestore"
 import { db } from "lib/firebase"
 import AllPostsSkeleton from "components/Skeletons/AllPostsSkeleton"
 import Tags from "components/Tags"
@@ -10,22 +10,31 @@ const Posts = () => {
   const [posts, setPosts] = useState(null)
 
   useEffect(() => {
-    const getPosts = async () => {
-      let postsArray = []
-      const querySnapshot = await getDocs(collection(db, "posts"))
-      querySnapshot.forEach((post) => {
-        postsArray.push({
-          id: post.id,
-          data: post.data(),
+    const unsubscribe = onSnapshot(
+      collection(db, "posts"),
+      (docs) => {
+        let postsArray = []
+
+        docs.forEach((post) => {
+          postsArray.push({
+            id: post.id,
+            ...post.data(),
+          })
         })
-      })
 
-      setPosts(postsArray)
-      setLoading(false)
-    }
+        setPosts(postsArray)
+      },
+      (error) => {
+        console.log(error)
+      }
+    )
 
-    getPosts()
+    setLoading(false)
+
+    return () => unsubscribe()
   }, [])
+
+  console.log(posts)
 
   if (loading) return <AllPostsSkeleton />
 
@@ -33,25 +42,23 @@ const Posts = () => {
 
   const RenderPosts = () => {
     const sortedPosts = posts.sort((a, b) => {
-      return new Date(b.data.date.seconds) - new Date(a.data.date.seconds)
+      return new Date(b.date.seconds) - new Date(a.date.seconds)
     })
 
-    return sortedPosts.map(({ id, data }) => (
+    return sortedPosts.map(({ id, author, slug, content, tags }) => (
       <article className="post-preview" key={id}>
         <header className="post-header">
           <h2 className="title is-3">
-            <Link to={`/user/${data.author}/posts/${data.slug}`}>
-              {data.content.title}
-            </Link>
+            <Link to={`/user/${author}/posts/${slug}`}>{content.title}</Link>
           </h2>
           <div className="tags">
-            <Tags data={data.tags} />
+            <Tags data={tags} />
           </div>
         </header>
-        <p className="post-excerpt">{data.content.excerpt}</p>
+        <p className="post-excerpt">{content.excerpt}</p>
         <footer className="post-footer">
-          Posted by <Link to={`/user/${data.author}`}>{data.author}</Link> |{" "}
-          <Link to={`/user/${data.author}/posts/${data.slug}`}>View Post</Link>
+          Posted by <Link to={`/user/${author}`}>{author}</Link> |{" "}
+          <Link to={`/user/${author}/posts/${slug}`}>View Post</Link>
         </footer>
       </article>
     ))
