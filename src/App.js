@@ -12,6 +12,7 @@ import Modal from "react-modal"
 import Post from "components/Post"
 import CreatePost from "containers/CreatePost"
 import PasswordReset from "containers/PasswordReset"
+import SiteTitle from "components/SiteTitle"
 
 Modal.setAppElement("#root")
 
@@ -19,6 +20,7 @@ const App = () => {
   return (
     <Router>
       <Layout>
+        <SiteTitle title="Block. | A creative writing community for writer's block. Explore, Create, Inspire" />
         <Routes>
           <Route path="/account" element={<FormPage />}>
             <Route path="/account/sign-up" element={<SignUp />} />

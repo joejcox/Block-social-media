@@ -57,8 +57,11 @@ const Posts = () => {
         </header>
         <p className="post-excerpt">{content.excerpt}</p>
         <footer className="post-footer">
-          Posted by <Link to={`/user/${author}`}>{author}</Link> |{" "}
-          <Link to={`/user/${author}/posts/${slug}`}>View Post</Link>
+          Posted by{" "}
+          <Link to={`/user/${author}`} className="capitalise">
+            {author}
+          </Link>{" "}
+          | <Link to={`/user/${author}/posts/${slug}`}>View Post</Link>
         </footer>
       </article>
     ))

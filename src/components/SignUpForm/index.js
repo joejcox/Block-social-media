@@ -12,7 +12,7 @@ const SignUpForm = () => {
   } = useForm()
 
   const onSubmit = async (data) => {
-    await signUp(data.email, data.password, data.username)
+    await signUp(data.username, data.password, data.username)
       .then((res) => console.log(res))
       .catch((error) => console.log(error))
   }

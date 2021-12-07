@@ -9,6 +9,7 @@ import { collection, getDocs } from "firebase/firestore"
 import UserPosts from "components/Posts/UserPosts"
 import ProfileSkeleton from "components/Skeletons/ProfileSkeleton"
 import ProfileHeader from "containers/Profile/ProfileHeader"
+import SiteTitle from "components/SiteTitle"
 
 const Profile = () => {
   const { user } = useParams()
@@ -33,11 +34,17 @@ const Profile = () => {
   }
 
   if (!data.data) {
-    return <h1 className="title is-1">No user exists</h1>
+    return (
+      <>
+        <SiteTitle title="No user exists | Block." />
+        <h1 className="title is-1">No user exists</h1>
+      </>
+    )
   }
 
   return (
     <div className="profile">
+      <SiteTitle title={`${data.username} | Block.'`} />
       <ProfileHeader data={data} loading={loading} />
       <section className="section posts">
         <div className="container">

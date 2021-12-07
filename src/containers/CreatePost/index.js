@@ -3,8 +3,7 @@
 import useFirestore from "hooks/useFirestore"
 import { useForm, useFormState } from "react-hook-form"
 import { v4 as uuidv4 } from "uuid"
-
-// react hook form
+import SiteTitle from "components/SiteTitle"
 
 const CreatePost = () => {
   const { createPost, username, uid } = useFirestore()
@@ -34,6 +33,7 @@ const CreatePost = () => {
 
   return (
     <section className="section">
+      <SiteTitle title="Create Post | Block." />
       <div className="container">
         <h1 className="title is-2">Create Post</h1>
         <form

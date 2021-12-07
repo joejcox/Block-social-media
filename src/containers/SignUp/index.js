@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import SignUpForm from "components/SignUpForm"
 import useAuth from "hooks/useAuth"
 import { useNavigate, Link } from "react-router-dom"
+import SiteTitle from "components/SiteTitle"
 
 const SignUp = () => {
   const navigate = useNavigate()
@@ -15,6 +16,7 @@ const SignUp = () => {
 
   return (
     <div className="form">
+      <SiteTitle title="Sign Up | Block." />
       <h1 className="title is-1">Sign up</h1>
       <span className="form-helper">
         <Link to="/account/sign-in">Already have an account?</Link>

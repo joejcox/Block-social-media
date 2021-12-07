@@ -370,3 +370,7 @@ input.button {
 .password-reset-form span {
     margin-bottom: 1rem;
 }
+
+.capitalise {
+    text-transform: capitalize;
+}

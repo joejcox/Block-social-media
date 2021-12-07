@@ -15,7 +15,9 @@ const ProfileHeader = ({ data, loading }) => {
           />
         </div>
         <div className="profile-details">
-          <h1 className="title is-3 has-backdrop">{data.username}</h1>
+          <h1 className="title is-3 has-backdrop capitalise">
+            {data.username}
+          </h1>
           {data.data.bio && (
             <>
               <br />
