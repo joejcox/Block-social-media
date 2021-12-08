@@ -53,8 +53,6 @@ const AuthContextProvider = ({ children }) => {
       return
     }
 
-    console.log(email)
-
     try {
       const response = await createUserWithEmailAndPassword(
         auth,

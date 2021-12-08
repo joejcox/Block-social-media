@@ -49,14 +49,14 @@ const UserContextProvider = ({ children }) => {
 
   const addComment = async (commentData, post_id, currentCommentCount) => {
     try {
-      const docRef = await addDoc(collection(db, "comments"), {
+      await addDoc(collection(db, "comments"), {
         ...commentData,
         date: new Date(),
       })
 
       updateCommentCount(post_id, currentCommentCount)
 
-      console.log(`Comment posted successfully: ${docRef.id}`)
+      console.log(`Comment posted successfully:`)
     } catch (error) {
       return error
     }
@@ -83,9 +83,10 @@ const UserContextProvider = ({ children }) => {
     const formattedSlug = convertToSlug(title)
 
     try {
-      const docRef = await addDoc(collection(db, "posts"), {
+      await addDoc(collection(db, "posts"), {
         author: author,
         author_id: author_id,
+        comment_count: 0,
         content: {
           body: body,
           excerpt: excerpt,
@@ -98,7 +99,7 @@ const UserContextProvider = ({ children }) => {
         tags: tags,
       })
 
-      console.log(`Post created successfully: ${docRef.id}`)
+      console.log(`Post created successfully`)
       navigate(`/user/${author}/posts/${formattedSlug}`)
     } catch (error) {
       return error
