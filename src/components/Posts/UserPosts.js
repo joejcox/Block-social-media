@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { collection, onSnapshot } from "firebase/firestore"
+import { collection, onSnapshot, query, where } from "firebase/firestore"
 import { db } from "lib/firebase"
 import Tags from "components/Tags"
 import AllPostsSkeleton from "components/Skeletons/AllPostsSkeleton"
@@ -14,20 +14,22 @@ const UserPosts = ({ author }) => {
   const [posts, setPosts] = useState(null)
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(
+    const postsRef = query(
       collection(db, "posts"),
+      where("author", "==", author)
+    )
+
+    const unsubscribe = onSnapshot(
+      postsRef,
       (docs) => {
         let postsArray = []
 
         docs.forEach((post) => {
-          const data = post.data()
-          if (data.author === author) {
-            postsArray.push({
-              id: post.id,
-              post_id: data.id,
-              data: data,
-            })
-          }
+          postsArray.push({
+            id: post.id,
+            post_id: post.data().id,
+            data: post.data(),
+          })
         })
 
         setPosts(postsArray)
