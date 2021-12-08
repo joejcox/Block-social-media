@@ -14,7 +14,7 @@ import useModal from "hooks/useModal"
 
 const UserNav = () => {
   const { logout } = useAuth()
-  const { username, avatar } = useFirestore()
+  const { userData } = useFirestore()
   const nav = useRef(null)
   const { openModal, closeModal, modalIsOpen, customStyles } = useModal()
 
@@ -35,6 +35,8 @@ const UserNav = () => {
   const handleClick = () => {
     nav.current.classList.toggle("open")
   }
+
+  if (!userData) return null
 
   return (
     <>
@@ -59,15 +61,15 @@ const UserNav = () => {
         <div className="user-nav--identity">
           <div className="user-nav--avatar">
             <img
-              src={avatar || defaultAvatar}
-              alt={`${username} profile avatar`}
+              src={userData.avatar || defaultAvatar}
+              alt={`${userData.username} profile avatar`}
             />
           </div>
-          <span className="user-nav--username">{username}</span>
+          <span className="user-nav--username">{userData.username}</span>
           <BsChevronDown />
         </div>
         <div className="user-nav--dropdown">
-          <Link className="user-nav--link" to={`user/${username}`}>
+          <Link className="user-nav--link" to={`user/${userData.username}`}>
             <FaUserAlt /> Profile
           </Link>
           <button className="user-nav--link" onClick={openModal}>

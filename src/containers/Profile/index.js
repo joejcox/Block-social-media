@@ -5,7 +5,7 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { db } from "lib/firebase"
-import { collection, getDocs } from "firebase/firestore"
+import { doc, getDoc } from "firebase/firestore"
 import UserPosts from "components/Posts/UserPosts"
 import ProfileSkeleton from "components/Skeletons/ProfileSkeleton"
 import ProfileHeader from "containers/Profile/ProfileHeader"
@@ -18,10 +18,9 @@ const Profile = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      const querySnapshot = await getDocs(collection(db, "users"))
-      querySnapshot.forEach((doc) => {
-        doc.id === user && setData({ username: doc.id, data: doc.data() })
-      })
+      const docRef = doc(db, "users", user)
+      const docSnap = await getDoc(docRef)
+      setData({ id: docSnap.id, ...docSnap.data() })
 
       setLoading(false)
     }
@@ -33,7 +32,7 @@ const Profile = () => {
     return <ProfileSkeleton />
   }
 
-  if (!data.data) {
+  if (!data.id) {
     return (
       <>
         <SiteTitle title="No user exists | Block." />
@@ -44,11 +43,11 @@ const Profile = () => {
 
   return (
     <div className="profile">
-      <SiteTitle title={`${data.username} | Block.'`} />
+      <SiteTitle title={`${data.id} | Block.'`} />
       <ProfileHeader data={data} loading={loading} />
       <section className="section posts">
         <div className="container">
-          <UserPosts author={data.username} />
+          <UserPosts author={data.id} />
         </div>
       </section>
     </div>

@@ -8,29 +8,24 @@ const ProfileHeader = ({ data, loading }) => {
       <div className="container">
         <div className="profile-image">
           <img
-            src={data.data.avatar || defaultAvatar}
-            alt={`${data.username} profile avatar`}
+            src={data.avatar || defaultAvatar}
+            alt={`${data.id} profile avatar`}
           />
         </div>
         <div className="profile-details">
-          <h1 className="title is-3 has-backdrop capitalise">
-            {data.username}
-          </h1>
-          {data.data.bio && (
+          <h1 className="title is-3 has-backdrop capitalise">{data.id}</h1>
+          {data.bio && (
             <>
               <br />
-              <h2 className="subtitle is-6 has-backdrop">{data.data.bio}</h2>
+              <h2 className="subtitle is-6 has-backdrop">{data.bio}</h2>
             </>
           )}
         </div>
       </div>
 
       <div className="profile-background">
-        {data.data.profileBg && (
-          <img
-            src={data.data.profileBg}
-            alt={`${data.username}'s profile background'`}
-          />
+        {data.profileBg && (
+          <img src={data.profileBg} alt={`${data.id}'s profile background'`} />
         )}
       </div>
     </section>

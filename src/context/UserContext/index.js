@@ -2,6 +2,8 @@ import { useState, useEffect, createContext } from "react"
 import {
   collection,
   getDocs,
+  query,
+  where,
   addDoc,
   doc,
   getDoc,
@@ -18,22 +20,25 @@ export const UserContext = createContext()
 const UserContextProvider = ({ children }) => {
   const navigate = useNavigate()
   const [userData, setUserData] = useState(null)
-  const [username, setUsername] = useState(null)
-  const [avatar, setAvatar] = useState(null)
-  const [uid, setUid] = useState(null)
+  // const [username, setUsername] = useState(null)
+  // const [avatar, setAvatar] = useState(null)
+  // const [uid, setUid] = useState(null)
   const { currentUser } = useAuth()
 
   useEffect(() => {
     const setData = async () => {
       if (!currentUser) return
-      const querySnapshot = await getDocs(collection(db, "users"))
-      querySnapshot.forEach((doc) => {
-        if (currentUser.uid === doc.data().uid) {
-          setUserData(doc.data())
-          setUsername(doc.id)
-          setAvatar(doc.data().avatar)
-          setUid(doc.data().uid)
-        }
+      const querySnapshot = query(
+        collection(db, "users"),
+        where("uid", "==", currentUser.uid)
+      )
+      const docRefs = await getDocs(querySnapshot)
+      docRefs.forEach((doc) => {
+        setUserData({ userId: doc.id, ...doc.data() })
+        // setUserData(doc.data())
+        // setUsername(doc.id)
+        // setAvatar(doc.data().avatar)
+        // setUid(doc.data().uid)
       })
     }
 
@@ -128,9 +133,9 @@ const UserContextProvider = ({ children }) => {
 
   const value = {
     userData,
-    username,
-    uid,
-    avatar,
+    // username,
+    // uid,
+    // avatar,
     createPost,
     deletePost,
     addComment,

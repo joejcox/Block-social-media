@@ -16,7 +16,7 @@ const Post = () => {
     const getPost = async () => {
       const query = await getDocs(collection(db, "posts"))
       query.forEach((doc) => {
-        doc.data().slug === post && setThePost({ id: doc.id, data: doc.data() })
+        doc.data().slug === post && setThePost({ id: doc.id, ...doc.data() })
       })
     }
 
@@ -35,7 +35,7 @@ const Post = () => {
     date: { seconds },
     tags,
     comment_count,
-  } = thePost.data
+  } = thePost
 
   const timestamp = seconds
   const date = new Date(timestamp * 1000)

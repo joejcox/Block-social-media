@@ -11,6 +11,8 @@ const Comment = ({ comment, username }) => {
     getAvatar(comment.author).then((res) => setAvatar(res))
   }, [comment, getAvatar])
 
+  if (!comment) return null
+
   return (
     <article className="media">
       <figure className="media-left">

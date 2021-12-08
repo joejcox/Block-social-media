@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid"
 import SiteTitle from "components/SiteTitle"
 
 const CreatePost = () => {
-  const { createPost, username, uid } = useFirestore()
+  const { createPost, userData } = useFirestore()
   const {
     register,
     handleSubmit,
@@ -21,12 +21,16 @@ const CreatePost = () => {
     } else {
       excerpt = await data.body
     }
-    createPost(username, uid, data.body, excerpt, "", data.title, uuidv4(), [
-      "entertainment",
-      "lifestyle",
-      "inspiration",
-      "poem",
-    ])
+    createPost(
+      userData.username,
+      userData.uid,
+      data.body,
+      excerpt,
+      "",
+      data.title,
+      uuidv4(),
+      ["entertainment", "lifestyle", "inspiration", "poem"]
+    )
   }
 
   const { isSubmitting } = useFormState({ control })

@@ -4,11 +4,12 @@ import useAuth from "hooks/useAuth"
 import useFirestore from "hooks/useFirestore"
 import { v4 as uuidv4 } from "uuid"
 import {
-  getDocs,
+  // where,
   collection,
   onSnapshot,
   query,
   orderBy,
+  // getDocs,
 } from "firebase/firestore"
 import { db } from "lib/firebase"
 import defaultAvatar from "assets/images/avatar_placeholder.png"
@@ -16,8 +17,8 @@ import Comment from "./Comment"
 
 const Comments = ({ collection_id, post_id, post_author, comment_count }) => {
   const { currentUser } = useAuth()
-  const [userData, setuserData] = useState(null)
-  const { addComment } = useFirestore()
+  // const [userData, setuserData] = useState(null)
+  const { addComment, userData } = useFirestore()
   const [charCount, setCharCount] = useState(0)
   const [comments, setComments] = useState(null)
   const {
@@ -28,22 +29,21 @@ const Comments = ({ collection_id, post_id, post_author, comment_count }) => {
     formState: { errors },
   } = useForm()
 
-  useEffect(() => {
-    const getUser = async () => {
-      if (!currentUser) return null
-      const querySnapshot = await getDocs(collection(db, "users"))
-      querySnapshot.forEach(
-        (doc) =>
-          doc.data().uid === currentUser.uid &&
-          setuserData({
-            username: doc.id,
-            avatar: doc.data().avatar,
-          })
-      )
-    }
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     if (!currentUser) return null
 
-    getUser()
-  }, [currentUser])
+  //     const usersRef = collection(db, "users")
+  //     const matchedUser = query(usersRef, where("uid", "==", currentUser.uid))
+  //     const docRefs = await getDocs(matchedUser)
+
+  //     docRefs.forEach((doc) =>
+  //       setuserData({ username: doc.id, avatar: doc.avatar })
+  //     )
+  //   }
+
+  //   getUser()
+  // }, [currentUser])
 
   useEffect(() => {
     const commentsRef = collection(db, "comments")
