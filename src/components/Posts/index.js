@@ -34,8 +34,6 @@ const Posts = () => {
     return () => unsubscribe()
   }, [])
 
-  console.log(posts)
-
   if (loading) return <AllPostsSkeleton />
 
   if (!posts) return <div className="no-posts">No posts to show</div>
@@ -45,26 +43,33 @@ const Posts = () => {
       return new Date(b.date.seconds) - new Date(a.date.seconds)
     })
 
-    return sortedPosts.map(({ id, author, slug, content, tags }) => (
-      <article className="post-preview" key={id}>
-        <header className="post-header">
-          <h2 className="title is-3">
-            <Link to={`/user/${author}/posts/${slug}`}>{content.title}</Link>
-          </h2>
-          <div className="tags">
-            <Tags data={tags} />
+    return sortedPosts.map(
+      ({ id, author, slug, content, tags, comment_count }) => (
+        <article className="post-preview" key={id}>
+          <header className="post-header">
+            <h2 className="title is-3">
+              <Link to={`/user/${author}/posts/${slug}`}>{content.title}</Link>
+            </h2>
+            <div className="tags">
+              <Tags data={tags} />
+            </div>
+          </header>
+          <p className="post-excerpt">{content.excerpt}</p>
+          <footer className="post-footer">
+            Posted by{" "}
+            <Link to={`/user/${author}`} className="capitalise">
+              {author}
+            </Link>{" "}
+            | <Link to={`/user/${author}/posts/${slug}`}>View Post</Link>
+          </footer>
+          <div className="content">
+            <Link to={`/user/${author}/posts/${slug}#comments`}>
+              Comments ({comment_count})
+            </Link>
           </div>
-        </header>
-        <p className="post-excerpt">{content.excerpt}</p>
-        <footer className="post-footer">
-          Posted by{" "}
-          <Link to={`/user/${author}`} className="capitalise">
-            {author}
-          </Link>{" "}
-          | <Link to={`/user/${author}/posts/${slug}`}>View Post</Link>
-        </footer>
-      </article>
-    ))
+        </article>
+      )
+    )
   }
 
   return (

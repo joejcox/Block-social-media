@@ -52,7 +52,7 @@ const SignInForm = () => {
 
       <div className="field">
         <input
-          type="text"
+          type="email"
           className="input formInput"
           placeholder="Email"
           {...register("email", {
@@ -61,8 +61,7 @@ const SignInForm = () => {
               message: "Field can not be empty",
             },
             pattern: {
-              value:
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
               message: "Invalid email",
             },
           })}

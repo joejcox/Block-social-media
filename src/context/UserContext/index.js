@@ -1,17 +1,19 @@
 import { useState, useEffect, createContext } from "react"
-import { collection, getDocs, addDoc, doc, deleteDoc } from "firebase/firestore"
+import {
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+  getDoc,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore"
 import { db } from "lib/firebase"
 import useAuth from "hooks/useAuth"
 import { useNavigate } from "react-router-dom"
+import defaultAvatar from "assets/images/avatar_placeholder.png"
 
-export const UserContext = createContext({
-  userData: Object,
-  username: String,
-  uid: String,
-  avatar: String,
-  createPost: Function,
-  deletePost: Function,
-})
+export const UserContext = createContext()
 
 const UserContextProvider = ({ children }) => {
   const navigate = useNavigate()
@@ -43,6 +45,29 @@ const UserContextProvider = ({ children }) => {
       .toLowerCase()
       .replace(/[^\w ]+/g, "")
       .replace(/ +/g, "-")
+  }
+
+  const addComment = async (commentData, post_id, currentCommentCount) => {
+    try {
+      const docRef = await addDoc(collection(db, "comments"), {
+        ...commentData,
+        date: new Date(),
+      })
+
+      updateCommentCount(post_id, currentCommentCount)
+
+      console.log(`Comment posted successfully: ${docRef.id}`)
+    } catch (error) {
+      return error
+    }
+  }
+
+  const updateCommentCount = async (post_id, currentCommentCount) => {
+    const postRef = doc(db, "posts", post_id)
+
+    await updateDoc(postRef, {
+      comment_count: currentCommentCount + 1,
+    })
   }
 
   const createPost = async (
@@ -85,6 +110,21 @@ const UserContextProvider = ({ children }) => {
     return true
   }
 
+  const getAvatar = async (author) => {
+    try {
+      const docRef = doc(db, "users", author)
+      const docSnap = await getDoc(docRef)
+
+      if (!docSnap.exists()) return null
+
+      const userAvatar = docSnap.data().avatar
+
+      return userAvatar
+    } catch (error) {
+      return defaultAvatar
+    }
+  }
+
   const value = {
     userData,
     username,
@@ -92,6 +132,8 @@ const UserContextProvider = ({ children }) => {
     avatar,
     createPost,
     deletePost,
+    addComment,
+    getAvatar,
   }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>

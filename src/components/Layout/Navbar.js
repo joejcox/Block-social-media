@@ -8,7 +8,9 @@ import ReactTooltip from "react-tooltip"
 const Navbar = () => {
   const { currentUser } = useAuth()
 
-  useEffect(() => ReactTooltip.rebuild())
+  useEffect(() => {
+    ReactTooltip.rebuild()
+  }, [])
 
   if (currentUser) {
     return (

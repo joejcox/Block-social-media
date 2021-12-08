@@ -80,6 +80,7 @@ const UserPosts = ({ author }) => {
             </button>
           ) : null}
         </footer>
+        Comments ({data.comment_count})
       </article>
     ))
   }

@@ -30,7 +30,7 @@ const UserNav = () => {
     return () => {
       window.removeEventListener("mousedown", handleClickOutside)
     }
-  })
+  }, [])
 
   const handleClick = () => {
     nav.current.classList.toggle("open")

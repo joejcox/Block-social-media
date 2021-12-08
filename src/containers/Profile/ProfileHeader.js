@@ -3,8 +3,6 @@ import defaultAvatar from "assets/images/avatar_placeholder.png"
 const ProfileHeader = ({ data, loading }) => {
   if (loading) return <p className="is-size-1">LOADING...</p>
 
-  console.log(data)
-
   return (
     <section className="section profile-header">
       <div className="container">

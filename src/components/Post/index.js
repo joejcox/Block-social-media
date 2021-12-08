@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
 import Tags from "components/Tags"
 import AllPostsSkeleton from "components/Skeletons/AllPostsSkeleton"
+import Comments from "components/Comments"
 
 const Post = () => {
   const [thePost, setThePost] = useState(null)
@@ -29,9 +30,11 @@ const Post = () => {
 
   const {
     author,
+    id,
     content: { title, body },
     date: { seconds },
     tags,
+    comment_count,
   } = thePost.data
 
   const timestamp = seconds
@@ -46,21 +49,29 @@ const Post = () => {
   const postTime = `${hours}:${minutes}`
 
   return (
-    <section className="section single-post">
-      <div className="container">
-        <header className="single-post--header post-header">
-          <h1 className="title is-1">{title}</h1>
-          <div className="tags">
-            <Tags data={tags} />
-          </div>
-        </header>
-        <p className="content">{body}</p>
-        <footer className="post-footer">
-          Created by <Link to={`/user/${author}`}>{author}</Link> on {fullDate}{" "}
-          at {postTime}
-        </footer>
-      </div>
-    </section>
+    <>
+      <section className="section single-post">
+        <div className="container">
+          <header className="single-post--header post-header">
+            <h1 className="title is-1">{title}</h1>
+            <div className="tags">
+              <Tags data={tags} />
+            </div>
+          </header>
+          <p className="content">{body}</p>
+          <footer className="post-footer">
+            Created by <Link to={`/user/${author}`}>{author}</Link> on{" "}
+            {fullDate} at {postTime}
+          </footer>
+        </div>
+      </section>
+      <Comments
+        collection_id={thePost.id}
+        post_id={id}
+        post_author={author}
+        comment_count={comment_count}
+      />
+    </>
   )
 }
 

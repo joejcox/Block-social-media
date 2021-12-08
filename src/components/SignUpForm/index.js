@@ -12,7 +12,8 @@ const SignUpForm = () => {
   } = useForm()
 
   const onSubmit = async (data) => {
-    await signUp(data.username, data.password, data.username)
+    console.log(data)
+    await signUp(data.email, data.password, data.username)
       .then((res) => console.log(res))
       .catch((error) => console.log(error))
   }
@@ -59,7 +60,7 @@ const SignUpForm = () => {
       </div>
       <div className="field">
         <input
-          type="text"
+          type="email"
           className="input formInput"
           placeholder="Email"
           {...register("email", {
@@ -68,15 +69,14 @@ const SignUpForm = () => {
               message: "Field can not be empty",
             },
             pattern: {
-              value:
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
               message: "Invalid email",
             },
           })}
         />
         {errors.email && (
           <span className="is-block has-text-danger is-size-7">
-            {errors.email.message}
+            {errors.email?.message}
           </span>
         )}
       </div>

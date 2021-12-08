@@ -12,7 +12,7 @@ const SignIn = () => {
     if (currentUser) {
       navigate("/dashboard")
     }
-  })
+  }, [navigate, currentUser])
 
   return (
     <div className="form">
