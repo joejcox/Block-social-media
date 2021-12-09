@@ -1,17 +1,27 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { collection, onSnapshot } from "firebase/firestore"
+import {
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+  getDocs,
+} from "firebase/firestore"
 import { db } from "lib/firebase"
 import AllPostsSkeleton from "components/Skeletons/AllPostsSkeleton"
 import Tags from "components/Tags"
+import defaultAvatar from "assets/images/avatar_placeholder.png"
 
 const Posts = () => {
   const [loading, setLoading] = useState(true)
   const [posts, setPosts] = useState(null)
+  const [users, setUsers] = useState(null)
 
   useEffect(() => {
+    const docRef = collection(db, "posts")
+    const snapRef = query(docRef, orderBy("date", "desc"))
     const unsubscribe = onSnapshot(
-      collection(db, "posts"),
+      snapRef,
       (docs) => {
         let postsArray = []
 
@@ -34,42 +44,74 @@ const Posts = () => {
     return () => unsubscribe()
   }, [])
 
+  useEffect(() => {
+    if (!posts) return null
+    const getUsers = async () => {
+      const usersArray = []
+      const usersRef = collection(db, "users")
+      const usersSnap = await getDocs(usersRef)
+
+      usersSnap.forEach((user) => {
+        usersArray.push({
+          id: user.id,
+          avatar: user.data().avatar,
+        })
+      })
+
+      setUsers(usersArray)
+    }
+
+    getUsers()
+  }, [posts])
+
   if (loading) return <AllPostsSkeleton />
 
-  if (!posts) return <div className="no-posts">No posts to show</div>
+  if (!posts) return null
 
   const RenderPosts = () => {
-    const sortedPosts = posts.sort((a, b) => {
-      return new Date(b.date.seconds) - new Date(a.date.seconds)
-    })
+    return posts.map(({ id, author, slug, content, tags, comment_count }) => {
+      if (!users) return null
 
-    return sortedPosts.map(
-      ({ id, author, slug, content, tags, comment_count }) => (
-        <article className="post-preview" key={id}>
-          <header className="post-header">
-            <h2 className="title is-3">
-              <Link to={`/user/${author}/posts/${slug}`}>{content.title}</Link>
-            </h2>
-            <div className="tags">
-              <Tags data={tags} />
+      const user = users.filter((user) => user.id === author)
+      const avatar = user[0].avatar
+
+      return (
+        <article className="post-preview media" key={id}>
+          <figure className="media-left">
+            <p className="comment-avatar image is-96x96">
+              <img src={avatar || defaultAvatar} alt={content.title} />
+            </p>
+          </figure>
+          <div className="media-content">
+            <div className="content">
+              <header className="post-header">
+                <h2 className="title is-3">
+                  <Link to={`/user/${author}/posts/${slug}`}>
+                    {content.title}
+                  </Link>
+                </h2>
+                <div className="tags">
+                  <Tags data={tags} />
+                </div>
+              </header>
+              <p className="post-excerpt">{content.excerpt}</p>
+              <footer className="post-footer">
+                Posted by
+                <Link to={`/user/${author}`} className="capitalise">
+                  {author}
+                </Link>
+                | <Link to={`/user/${author}/posts/${slug}`}>View Post</Link>
+              </footer>
+              <div className="content">
+                <Link to={`/user/${author}/posts/${slug}#comments`}>
+                  Comments ({comment_count})
+                </Link>
+              </div>
             </div>
-          </header>
-          <p className="post-excerpt">{content.excerpt}</p>
-          <footer className="post-footer">
-            Posted by{" "}
-            <Link to={`/user/${author}`} className="capitalise">
-              {author}
-            </Link>{" "}
-            | <Link to={`/user/${author}/posts/${slug}`}>View Post</Link>
-          </footer>
-          <div className="content">
-            <Link to={`/user/${author}/posts/${slug}#comments`}>
-              Comments ({comment_count})
-            </Link>
           </div>
         </article>
       )
-    )
+    })
   }
 
   return (

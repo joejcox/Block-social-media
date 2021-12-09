@@ -15,7 +15,7 @@ const Post = () => {
   useEffect(() => {
     const getPost = async () => {
       const query = await getDocs(collection(db, "posts"))
-      query.forEach((doc) => {
+      query.forEach(async (doc) => {
         doc.data().slug === post && setThePost({ id: doc.id, ...doc.data() })
       })
     }

@@ -20,9 +20,6 @@ export const UserContext = createContext()
 const UserContextProvider = ({ children }) => {
   const navigate = useNavigate()
   const [userData, setUserData] = useState(null)
-  // const [username, setUsername] = useState(null)
-  // const [avatar, setAvatar] = useState(null)
-  // const [uid, setUid] = useState(null)
   const { currentUser } = useAuth()
 
   useEffect(() => {
@@ -35,10 +32,6 @@ const UserContextProvider = ({ children }) => {
       const docRefs = await getDocs(querySnapshot)
       docRefs.forEach((doc) => {
         setUserData({ userId: doc.id, ...doc.data() })
-        // setUserData(doc.data())
-        // setUsername(doc.id)
-        // setAvatar(doc.data().avatar)
-        // setUid(doc.data().uid)
       })
     }
 
@@ -133,9 +126,6 @@ const UserContextProvider = ({ children }) => {
 
   const value = {
     userData,
-    // username,
-    // uid,
-    // avatar,
     createPost,
     deletePost,
     addComment,
