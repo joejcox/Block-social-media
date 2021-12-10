@@ -13,15 +13,18 @@ const Navbar = () => {
   if (currentUser) {
     return (
       <nav className="navbar-end" role="navigation">
-        <Link className="navbar-item dashboard-link" to="/dashboard">
+        <Link
+          className="text-base flex is-align-items-center px-4 font-sans hover:bg-gray-100"
+          to="/dashboard"
+        >
           Home
         </Link>
         <Link
-          className="navbar-item create-post-link"
+          className="flex is-align-items-center px-4 font-sans hover:bg-gray-100 create-post-link"
           to="/create-post"
           data-tip="Create Post"
         >
-          <GrAddCircle />
+          <GrAddCircle className="stroke-1 group-hover:stroke-white" />
         </Link>
         <UserNav />
       </nav>
