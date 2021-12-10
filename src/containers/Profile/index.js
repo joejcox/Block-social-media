@@ -42,15 +42,15 @@ const Profile = () => {
   }
 
   return (
-    <div className="profile">
+    <>
       <SiteTitle title={`${data.id} | Block.'`} />
       <ProfileHeader data={data} loading={loading} />
-      <section className="section posts">
-        <div className="container">
+      <section className="flex">
+        <div className="container mx-auto max-w-2xl">
           <UserPosts author={data.id} />
         </div>
       </section>
-    </div>
+    </>
   )
 }
 

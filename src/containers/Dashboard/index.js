@@ -1,22 +1,20 @@
 import useAuth from "hooks/useAuth"
 import Posts from "components/Posts"
 import SiteTitle from "components/SiteTitle"
+import Section from "components/Layout/Section"
+import PageTitle from "components/Layout/PageTitle"
 
 const Dashboard = () => {
   const { displayName } = useAuth()
 
   return (
-    <section className="px-6">
+    <Section>
       <SiteTitle title="Dashboard | Block." />
-      <div className="container">
-        <div className="page-title text-center py-8 border-b mb-20">
-          <h1 className="text-3xl text-purple-700 py-2 px-6 inline-block">
-            Welcome back {displayName}
-          </h1>
-        </div>{" "}
+      <div className="container mx-auto max-w-2xl">
+        <PageTitle>Welcome back {displayName}</PageTitle>
         <Posts />
       </div>
-    </section>
+    </Section>
   )
 }
 
