@@ -12,22 +12,22 @@ const Navbar = () => {
 
   if (currentUser) {
     return (
-      <nav className="navbar-end" role="navigation">
+      <div className="nav-right flex items-stretch">
         <Link
-          className="text-base flex is-align-items-center px-4 font-sans hover:bg-gray-100"
+          className="hidden lg:flex text-base items-center px-4 font-sans hover:bg-gray-100"
           to="/dashboard"
         >
           Home
         </Link>
         <Link
-          className="flex is-align-items-center px-4 font-sans hover:bg-gray-100 create-post-link"
+          className="flex items-center px-4 font-sans hover:bg-gray-100 create-post-link"
           to="/create-post"
           data-tip="Create Post"
         >
           <GrAddCircle className="stroke-1 group-hover:stroke-white" />
         </Link>
         <UserNav />
-      </nav>
+      </div>
     )
   }
 

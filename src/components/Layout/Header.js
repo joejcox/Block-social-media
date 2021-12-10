@@ -3,8 +3,11 @@ import Navbar from "./Navbar"
 
 const Header = () => (
   //site_header px-6
-  <header className="px-16 shadow">
-    <nav className="nav flex">
+  <header className="px-0 lg:px-4 xl:px-16 3xl:px-32 shadow">
+    <nav
+      className="nav flex justify-between is-align-items-center"
+      role="navigation"
+    >
       <div className="nav-left flex is-align-items-stretch">
         <Link
           to="/"

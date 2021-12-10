@@ -76,37 +76,56 @@ const Posts = () => {
       const avatar = user[0].avatar
 
       return (
-        <article className="post-preview media" key={id}>
-          <figure className="media-left">
-            <p className="comment-avatar image is-96x96">
-              <img src={avatar || defaultAvatar} alt={content.title} />
-            </p>
-          </figure>
-          <div className="media-content">
-            <div className="content">
-              <header className="post-header">
-                <h2 className="title is-3">
-                  <Link to={`/user/${author}/posts/${slug}`}>
-                    {content.title}
-                  </Link>
-                </h2>
-                <div className="tags">
-                  <Tags data={tags} />
-                </div>
-              </header>
-              <p className="post-excerpt">{content.excerpt}</p>
-              <footer className="post-footer">
-                Posted by
-                <Link to={`/user/${author}`} className="capitalise">
-                  {author}
-                </Link>
-                | <Link to={`/user/${author}/posts/${slug}`}>View Post</Link>
-              </footer>
-              <div className="content">
-                <Link to={`/user/${author}/posts/${slug}#comments`}>
-                  Comments ({comment_count})
-                </Link>
+        <article
+          className=" bg-orange-50 w-full p-0 mb-20 border-b border-gray-200"
+          key={id}
+        >
+          <div className="relative">
+            <figure className="media-left absolute -top-7 left-5">
+              <p className="w-14 h-14 overflow-hidden rounded-full shadow-lg">
+                <img
+                  className="h-full w-full object-cover"
+                  src={avatar || defaultAvatar}
+                  alt={content.title}
+                />
+              </p>
+            </figure>
+            <div className="media-content mt-1 pt-12 rounded-lg rounded-tl-none overflow-hidden bg-gray-100 flex-1">
+              <div className="content px-6">
+                <header className="post-header">
+                  <h2 className="text-2xl mb-3">
+                    <Link
+                      className="text-purple-700 hover:text-purple-800 hover:underline"
+                      to={`/user/${author}/posts/${slug}`}
+                    >
+                      {content.title}
+                    </Link>
+                  </h2>
+                  <div className="tags mb-6">
+                    <Tags data={tags} />
+                  </div>
+                </header>
+                <p className="post-excerpt pb-6 text-sm">{content.excerpt}</p>
               </div>
+              <footer className="post-footer px-6 py-4 flex justify-between bg-purple-600 text-purple-200">
+                <div className="footer-left">
+                  Posted by{" "}
+                  <Link
+                    to={`/user/${author}`}
+                    className="capitalise underline hover:text-purple-100"
+                  >
+                    {author}
+                  </Link>
+                </div>
+                <div className="footer-right">
+                  <Link
+                    to={`/user/${author}/posts/${slug}#comments`}
+                    className="underline hover:text-purple-100"
+                  >
+                    Comments ({comment_count})
+                  </Link>
+                </div>
+              </footer>
             </div>
           </div>
         </article>
