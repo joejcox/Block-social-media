@@ -4,8 +4,8 @@ const ProfileHeader = ({ data, loading }) => {
   if (loading) return <p className="is-size-1">LOADING...</p>
 
   return (
-    <section className="flex py-6 xl:py-10 px-6 xl:px-32 relative overflow-hidden mb-24">
-      <div className="container mx-auto flex max-w-6xl">
+    <section className="flex py-6 xl:py-10 px-6 xl:px-32 relative overflow-hidden mb-6">
+      <div className="container mx-auto flex max-w-6xl z-50">
         <div className="mr-6 w-32 h-32 rounded-full overflow-hidden">
           <img
             className="object-cover w-full h-full"
@@ -28,7 +28,7 @@ const ProfileHeader = ({ data, loading }) => {
         </div>
       </div>
 
-      <div className="profile-background">
+      <div className="bg-hero-pattern absolute top-0 left-0 right-0 bottom-0 z-10">
         {data.profileBg && (
           <img src={data.profileBg} alt={`${data.id}'s profile background'`} />
         )}

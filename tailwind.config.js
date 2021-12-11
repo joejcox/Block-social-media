@@ -29,6 +29,11 @@ module.exports = {
       borderRadius: {
         "4xl": "2rem",
       },
+      backgroundImage: {
+        "hero-pattern": "url('/src/assets/images/home-bg.jpg')",
+        "signup-bg": "url('/src/assets/images/form-bg-1.jpg')",
+        "signin-bg": "url('/src/assets/images/form-bg-2.jpg')",
+      },
     },
   },
 }

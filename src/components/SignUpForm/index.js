@@ -26,11 +26,11 @@ const SignUpForm = () => {
       onSubmit={(e) => e.preventDefault()}
       autoComplete="off"
     >
-      {error && <p className="form-top-error has-text-danger">{error}</p>}
+      {error && <p className="my-4 text-red-500 text-sm">{error}</p>}
       <div className="field">
         <input
           type="text"
-          className="input formInput"
+          className="block placeholder-purple-700 text-purple-700 mb-2 bg-purple-100 w-full p-4 rounded-lg focus:bg-purple-200 outline-white"
           placeholder="Username"
           {...register("username", {
             required: {
@@ -53,7 +53,7 @@ const SignUpForm = () => {
           })}
         />
         {errors.username && (
-          <span className="is-block has-text-danger is-size-7">
+          <span className="block text-red-500 text-xs pl-2 my-2">
             {errors.username.message}
           </span>
         )}
@@ -61,7 +61,7 @@ const SignUpForm = () => {
       <div className="field">
         <input
           type="email"
-          className="input formInput"
+          className="block placeholder-purple-700 text-purple-700 mb-2 bg-purple-100 w-full p-4 rounded-lg focus:bg-purple-200 outline-white"
           placeholder="Email"
           {...register("email", {
             required: {
@@ -69,13 +69,14 @@ const SignUpForm = () => {
               message: "Field can not be empty",
             },
             pattern: {
-              value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              value:
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
               message: "Invalid email",
             },
           })}
         />
         {errors.email && (
-          <span className="is-block has-text-danger is-size-7">
+          <span className="block text-red-500 text-xs pl-2 my-2">
             {errors.email?.message}
           </span>
         )}
@@ -83,7 +84,7 @@ const SignUpForm = () => {
       <div className="field">
         <input
           type="password"
-          className="input formInput"
+          className="block placeholder-purple-700 text-purple-700 mb-2 bg-purple-100 w-full p-4 rounded-lg focus:bg-purple-200 outline-white"
           name="password"
           placeholder="Password"
           {...register("password", {
@@ -95,7 +96,7 @@ const SignUpForm = () => {
           })}
         />
         {errors.password && (
-          <span className="is-block has-text-danger is-size-7">
+          <span className="block text-red-500 text-xs pl-2 my-2">
             {errors.password.message}
           </span>
         )}
@@ -104,7 +105,7 @@ const SignUpForm = () => {
         <input
           type="password"
           name="passwordDuplicate"
-          className="input formInput"
+          className="block placeholder-purple-700 text-purple-700 mb-2 bg-purple-100 w-full p-4 rounded-lg focus:bg-purple-200 outline-white"
           placeholder="Repeat password"
           {...register("passwordDuplicate", {
             required: "You must confirm your password",
@@ -117,14 +118,14 @@ const SignUpForm = () => {
           })}
         />
         {errors.passwordDuplicate && (
-          <span className="is-block has-text-danger is-size-7">
+          <span className="block text-red-500 text-xs pl-2 my-2">
             {errors.passwordDuplicate.message}
           </span>
         )}
       </div>
       <input
         type="submit"
-        className="button is-info"
+        className="bg-purple-700 mt-4 text-white text-sm py-3 rounded-full w-full md:w-auto md:px-8 cursor-pointer hover:bg-purple-800"
         value={isSubmitting ? "Signing up..." : "Sign up"}
         onClick={handleSubmit(onSubmit)}
         disabled={isSubmitting}

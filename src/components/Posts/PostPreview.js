@@ -11,7 +11,11 @@ const PostPreview = ({ avatar, postData, postId, userCtrl, showAvatar }) => {
   const { content, author, author_id, slug, comment_count } = postData
 
   return (
-    <article className="bg-orange-50 w-full p-0 mb-20 border-b border-gray-200">
+    <article
+      className={`w-full p-0 ${
+        showAvatar ? "mb-20" : "mb-6"
+      } border-b border-gray-200`}
+    >
       <div className="relative">
         {currentUser && currentUser.uid === author_id
           ? userCtrl && (
@@ -32,7 +36,7 @@ const PostPreview = ({ avatar, postData, postId, userCtrl, showAvatar }) => {
           showAvatar={showAvatar}
         />
 
-        <div className="media-content mt-1 pt-12 rounded-lg rounded-tl-none overflow-hidden bg-gray-100 flex-1">
+        <div className="mt-1 pt-12 rounded-lg overflow-hidden bg-gray-100 flex-1">
           <PostPreviewContent postData={{ ...postData }} />
 
           <PostPreviewFooter
