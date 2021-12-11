@@ -12,41 +12,39 @@ const PostPreview = ({ avatar, postData, postId, userCtrl, showAvatar }) => {
 
   return (
     <article
-      className={`w-full p-0 ${
+      className={`w-full p-0 relative ${
         showAvatar ? "mb-20" : "mb-6"
       } border-b border-gray-200`}
     >
-      <div className="relative">
-        {currentUser && currentUser.uid === author_id
-          ? userCtrl && (
-              <div className="absolute right-4 top-4">
-                <button
-                  className="text-gray-800"
-                  onClick={() => deletePost(postId)}
-                >
-                  <TrashIcon className="text-gray-500 w-5 h-5" />
-                </button>
-              </div>
-            )
-          : null}
-        <PostPreviewAvatar
-          author={author}
-          alt={content.title}
-          avatar={avatar}
-          showAvatar={showAvatar}
+      {currentUser && currentUser.uid === author_id
+        ? userCtrl && (
+            <div className="absolute right-4 top-4">
+              <button
+                className="text-gray-800"
+                onClick={() => deletePost(postId)}
+              >
+                <TrashIcon className="text-gray-500 w-5 h-5" />
+              </button>
+            </div>
+          )
+        : null}
+      <PostPreviewAvatar
+        author={author}
+        alt={content.title}
+        avatar={avatar}
+        showAvatar={showAvatar}
+      />
+
+      <div className="mt-1 pt-12 rounded-lg overflow-hidden bg-gray-100 flex-1">
+        <PostPreviewContent postData={{ ...postData }} />
+
+        <PostPreviewFooter
+          postData={{
+            author: author,
+            slug: slug,
+            comment_count: comment_count,
+          }}
         />
-
-        <div className="mt-1 pt-12 rounded-lg overflow-hidden bg-gray-100 flex-1">
-          <PostPreviewContent postData={{ ...postData }} />
-
-          <PostPreviewFooter
-            postData={{
-              author: author,
-              slug: slug,
-              comment_count: comment_count,
-            }}
-          />
-        </div>
       </div>
     </article>
   )

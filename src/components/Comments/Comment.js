@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import defaultAvatar from "assets/images/avatar_placeholder.png"
 import useFirestore from "hooks/useFirestore"
 import utilities from "hooks/utilities"
+import MediaAvatar from "components/MediaAvatar"
 
 const Comment = ({ comment, username }) => {
   const { getAvatar } = useFirestore()
@@ -18,25 +18,21 @@ const Comment = ({ comment, username }) => {
   const { date, time } = formatDate(comment.date.seconds)
 
   return (
-    <article className="media">
-      <figure className="media-left">
-        <p className="image is-64x64 comment-avatar">
-          <img src={avatar || defaultAvatar} alt={username} />
-        </p>
-      </figure>
-      <div className="media-content">
+    <article className="flex bg-purple-100 mb-4 py-6 px-4 rounded-2xl">
+      <MediaAvatar author={comment.author} avatar={avatar} />
+      <div className="flex-1">
         <div className="content">
-          <Link className="capitalise" to={`/user/${comment.author}`}>
-            {comment.author}
-          </Link>
-          <p className=" my-4">
-            <span className="comment-tag">
-              <Link to={`/user/${comment.reply_to}`}>@{comment.reply_to}</Link>
-            </span>
-            {comment.content}
-          </p>
+          <h4 className="text-md">
+            <Link
+              className="capitalise text-purple-700"
+              to={`/user/${comment.author}`}
+            >
+              {comment.author}
+            </Link>
+          </h4>
+          <p className="my-4">{comment.content}</p>
         </div>
-        <footer className="mt-4">
+        <footer className="mt-6 text-xs">
           <span className="is-size-7">
             Posted on {date} at {time}
           </span>

@@ -1,5 +1,6 @@
 import { useForm, useFormState } from "react-hook-form"
 import useAuth from "hooks/useAuth"
+import Button from "components/Layout/Button"
 
 const SignUpForm = () => {
   const { signUp, error } = useAuth()
@@ -123,13 +124,13 @@ const SignUpForm = () => {
           </span>
         )}
       </div>
-      <input
+      <Button
         type="submit"
-        className="bg-purple-700 mt-4 text-white text-sm py-3 rounded-full w-full md:w-auto md:px-8 cursor-pointer hover:bg-purple-800"
-        value={isSubmitting ? "Signing up..." : "Sign up"}
-        onClick={handleSubmit(onSubmit)}
+        click={handleSubmit(onSubmit)}
         disabled={isSubmitting}
-      />
+      >
+        {isSubmitting ? "Signing up..." : "Sign up"}
+      </Button>
     </form>
   )
 }

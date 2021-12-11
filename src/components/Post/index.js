@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
-import { getDocs, collection } from "firebase/firestore"
+import { collection, query, where, getDocs } from "firebase/firestore"
 import { db } from "lib/firebase"
 import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
 import Tags from "components/Tags"
 import AllPostsSkeleton from "components/Skeletons/AllPostsSkeleton"
 import Comments from "components/Comments"
+import PageTitle from "components/Layout/PageTitle"
 
 const Post = () => {
   const [thePost, setThePost] = useState(null)
@@ -14,9 +15,12 @@ const Post = () => {
 
   useEffect(() => {
     const getPost = async () => {
-      const query = await getDocs(collection(db, "posts"))
-      query.forEach(async (doc) => {
-        doc.data().slug === post && setThePost({ id: doc.id, ...doc.data() })
+      const docSnap = await getDocs(
+        query(collection(db, "posts"), where("slug", "==", post))
+      )
+
+      docSnap.forEach((doc) => {
+        setThePost({ id: doc.id, ...doc.data() })
       })
     }
 
@@ -50,18 +54,26 @@ const Post = () => {
 
   return (
     <>
-      <section className="section single-post">
-        <div className="container">
-          <header className="single-post--header post-header">
-            <h1 className="title is-1">{title}</h1>
+      <section className="px-6 flex flex-col">
+        <div className="container mx-auto max-w-2xl text-center">
+          <header className="mb-8">
+            <PageTitle mb={8}>{title}</PageTitle>
             <div className="tags">
               <Tags data={tags} />
             </div>
           </header>
-          <p className="content">{body}</p>
-          <footer className="post-footer">
-            Created by <Link to={`/user/${author}`}>{author}</Link> on{" "}
-            {fullDate} at {postTime}
+        </div>
+        <div className="container mx-auto max-w-2xl">
+          <p className="bg-gray-50 rounded-xl p-8 text-gray-700">{body}</p>
+          <footer className="text-center py-8 text-xs text-gray-600">
+            Created by{" "}
+            <Link
+              to={`/user/${author}`}
+              className="text-purple-700 hover:underline"
+            >
+              {author}
+            </Link>{" "}
+            on {fullDate} at {postTime}
           </footer>
         </div>
       </section>
