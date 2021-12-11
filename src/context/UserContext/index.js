@@ -45,27 +45,37 @@ const UserContextProvider = ({ children }) => {
       .replace(/ +/g, "-")
   }
 
-  const addComment = async (commentData, post_id, currentCommentCount) => {
+  const addComment = async (commentData, currentCommentCount) => {
     try {
       await addDoc(collection(db, "comments"), {
         ...commentData,
         date: new Date(),
       })
 
-      updateCommentCount(post_id, currentCommentCount)
+      await updateCommentCount(commentData.parent_id, currentCommentCount)
 
-      console.log(`Comment posted successfully:`)
+      console.log("post added")
     } catch (error) {
-      return error
+      console.log(`Error in addComment function: ${error}`)
     }
   }
 
   const updateCommentCount = async (post_id, currentCommentCount) => {
-    const postRef = doc(db, "posts", post_id)
+    const count = currentCommentCount + 1
 
-    await updateDoc(postRef, {
-      comment_count: currentCommentCount + 1,
-    })
+    try {
+      console.log(post_id)
+      const postRef = doc(db, "posts", post_id)
+      const postSnap = await getDoc(postRef)
+
+      if (postSnap.exists()) {
+        updateDoc(postRef, {
+          comment_count: count,
+        })
+      }
+    } catch (error) {
+      console.log(`Error in updateCommentCount function: ${error}`)
+    }
   }
 
   const createPost = async (
@@ -104,9 +114,16 @@ const UserContextProvider = ({ children }) => {
     }
   }
 
+  // const getCommentCount = async (id) => {}
+
   const deletePost = async (id) => {
-    await deleteDoc(doc(db, "posts", id))
-    return true
+    try {
+      await deleteDoc(doc(db, "posts", id))
+      return true
+    } catch (error) {
+      console.log(error)
+      return false
+    }
   }
 
   const getAvatar = async (author) => {

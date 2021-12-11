@@ -20,7 +20,7 @@ const Post = () => {
       )
 
       docSnap.forEach((doc) => {
-        setThePost({ id: doc.id, ...doc.data() })
+        setThePost({ post_ref: doc.id, ...doc.data() })
       })
     }
 
@@ -34,11 +34,10 @@ const Post = () => {
 
   const {
     author,
-    id,
+    post_ref,
     content: { title, body },
     date: { seconds },
     tags,
-    comment_count,
   } = thePost
 
   const timestamp = seconds
@@ -77,12 +76,7 @@ const Post = () => {
           </footer>
         </div>
       </section>
-      <Comments
-        collection_id={thePost.id}
-        post_id={id}
-        post_author={author}
-        comment_count={comment_count}
-      />
+      <Comments post_id={post_ref} post_author={author} />
     </>
   )
 }

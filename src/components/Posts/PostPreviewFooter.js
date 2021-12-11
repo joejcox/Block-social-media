@@ -16,7 +16,7 @@ const PostPreviewFooter = ({ postData }) => {
       </div>
       <div className="footer-right">
         <Link
-          to={`/user/${author}/posts/${slug}#comments`}
+          to={`/user/${author}/posts/${slug}`}
           className="underline hover:text-purple-100"
         >
           Comments ({comment_count})

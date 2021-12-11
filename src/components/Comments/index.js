@@ -6,7 +6,7 @@ import Comment from "./Comment"
 import CommentsList from "./CommentsList"
 import CommentForm from "./CommentForm"
 
-const Comments = ({ collection_id, post_id, post_author, comment_count }) => {
+const Comments = ({ post_id, post_author }) => {
   const { userData } = useFirestore()
   const [comments, setComments] = useState(null)
 
@@ -30,7 +30,7 @@ const Comments = ({ collection_id, post_id, post_author, comment_count }) => {
           }
         })
 
-        setComments(commentsArray, collection_id, comment_count)
+        setComments(commentsArray)
       },
       (error) => {
         console.log(error)
@@ -38,7 +38,7 @@ const Comments = ({ collection_id, post_id, post_author, comment_count }) => {
     )
 
     return () => unsubscribe()
-  }, [post_id, collection_id, comment_count])
+  }, [post_id])
 
   if (!userData) return null
 
@@ -47,8 +47,7 @@ const Comments = ({ collection_id, post_id, post_author, comment_count }) => {
       <CommentForm
         post_id={post_id}
         post_author={post_author}
-        collection_id={collection_id}
-        comment_count={comment_count}
+        comment_count={comments ? comments.length : 0}
       />
       <CommentsList comments_count={comments ? comments.length : 0}>
         {comments &&

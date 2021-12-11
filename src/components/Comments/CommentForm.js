@@ -6,12 +6,7 @@ import { useForm, useFormState } from "react-hook-form"
 import { v4 as uuidv4 } from "uuid"
 import MediaAvatar from "components/MediaAvatar"
 
-const CommentForm = ({
-  post_id,
-  post_author,
-  collection_id,
-  comment_count,
-}) => {
+const CommentForm = ({ post_id, post_author, comment_count }) => {
   const { currentUser } = useAuth()
   const { addComment, userData } = useFirestore()
   const [charCount, setCharCount] = useState(0)
@@ -32,7 +27,7 @@ const CommentForm = ({
       parent_id: post_id,
       reply_to: post_author,
     }
-    await addComment(commentData, collection_id, comment_count)
+    await addComment(commentData, comment_count)
       .then(() => {
         setCharCount(0)
         resetField("content")
@@ -52,15 +47,7 @@ const CommentForm = ({
         </h3>
         <article className="flex">
           <MediaAvatar author={post_author} avatar={userData.avatar} />
-          {/* <figure className="bg-purple-700 mr-4 overflow-hidden h-14 w-14 rounded-full">
-            <Link to={`/user/${post_author}`} className="block w-full h-full">
-              <img
-                className="h-full w-full object-cover"
-                src={userData.avatar || defaultAvatar}
-                alt={userData.username}
-              />
-            </Link>
-          </figure> */}
+
           <form
             className="flex-1"
             onSubmit={(e) => e.preventDefault()}
