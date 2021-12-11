@@ -18,7 +18,11 @@ A community for writers to release creativity and also find inspiration.
 ```yarn start```
 
 ## Edit
-I switched to bootstrapping the project with create-react-app due to issues deploying to Vercel
+I switched to bootstrapping the project with create-react-app due to issues deploying to Vercel.
+
+## Edit 2
+
+I didn't quite know where I was going to take this, I just built it as I went which is usually the case with my personal projects. This means that unfortunately I did not have a set design, layout, structure or idea of components I would need ahead of time. This leads to the need to refactor quite a lot but I feel it helps exercise my mind.
 
 ---
 
