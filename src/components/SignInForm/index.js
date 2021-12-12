@@ -89,7 +89,11 @@ const SignInForm = () => {
           </span>
         )}
       </div>
-      <Button type="submit" disabled={isSubmitting}>
+      <Button
+        type="submit"
+        disabled={isSubmitting}
+        click={handleSubmit(onSubmit)}
+      >
         {isSubmitting ? "Signing In..." : "Sign In"}
       </Button>
 

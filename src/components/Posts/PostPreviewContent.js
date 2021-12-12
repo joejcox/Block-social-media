@@ -3,6 +3,10 @@ import Tags from "components/Tags"
 
 const PostPreviewContent = ({ postData }) => {
   const { author, slug, tags, content } = postData
+  const excerpt =
+    content.body.length > 100
+      ? content.body.substring(0, 100) + "..."
+      : content.body
 
   return (
     <div className="content px-6">
@@ -19,7 +23,7 @@ const PostPreviewContent = ({ postData }) => {
           <Tags data={tags} />
         </div>
       </header>
-      <p className="post-excerpt pb-6 text-sm">{content.excerpt}</p>
+      <p className="post-excerpt pb-6 text-sm">{excerpt}</p>
     </div>
   )
 }

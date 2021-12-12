@@ -79,13 +79,20 @@ const UserContextProvider = ({ children }) => {
     author,
     author_id,
     body,
-    excerpt,
     image,
     title,
     id,
     tags
   ) => {
-    const formattedSlug = convertToSlug(title)
+    const replaceEmoji = (str) => {
+      return str.replace(
+        /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
+        "moji"
+      )
+    }
+
+    const cleanedTitle = await replaceEmoji(title)
+    const formattedSlug = await convertToSlug(cleanedTitle)
 
     try {
       await addDoc(collection(db, "posts"), {
@@ -94,7 +101,6 @@ const UserContextProvider = ({ children }) => {
         comment_count: 0,
         content: {
           body: body,
-          excerpt: excerpt,
           image: image,
           title: title,
         },

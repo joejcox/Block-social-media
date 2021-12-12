@@ -40,19 +40,19 @@ const ConfirmDeleteForm = ({ string, deletePost, close }) => {
             {errors.confirm.message}
           </span>
         )}
+        <div className="flex justify-end mt-6 buttons">
+          <Button type="button" click={() => close()} outline>
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            click={handleSubmit(onSubmit)}
+            submitting={isSubmitting}
+          >
+            {isSubmitting ? "Deleting post..." : "Delete Post"}
+          </Button>
+        </div>
       </form>
-      <div className="flex justify-end mt-6 buttons">
-        <Button type="button" click={() => close()} outline>
-          Cancel
-        </Button>
-        <Button
-          type="submit"
-          click={handleSubmit(onSubmit)}
-          submitting={isSubmitting}
-        >
-          {isSubmitting ? "Deleting post..." : "Delete Post"}
-        </Button>
-      </div>
     </>
   )
 }
