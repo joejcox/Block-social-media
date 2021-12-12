@@ -10,15 +10,7 @@ import auth from "lib/firebase"
 import { doc, setDoc, getDoc, collection, getDocs } from "firebase/firestore"
 import { db } from "lib/firebase"
 
-export const AuthContext = createContext({
-  currentUser: null,
-  signUp: Promise,
-  signIn: Promise,
-  logout: Promise,
-  resetPassword: Promise,
-  error: String,
-  displayName: String,
-})
+export const AuthContext = createContext()
 
 const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null)
@@ -48,6 +40,7 @@ const AuthContextProvider = ({ children }) => {
 
   const signUp = async (email, password, username) => {
     const checkDoc = await getDoc(doc(db, "users", username))
+
     if (checkDoc._document) {
       setError("Username already exists, please choose another username")
       return
@@ -63,7 +56,7 @@ const AuthContextProvider = ({ children }) => {
 
       await setDoc(doc(db, "users", username), {
         uid: user.uid,
-        username: username.toLowerCase(),
+        username: username,
         bio: "",
         email: user.email,
         avatar: "",
