@@ -8,7 +8,7 @@ import Section from "components/Layout/Section"
 import PageTitle from "components/Layout/PageTitle"
 
 const CreatePost = () => {
-  const { createPost, userData } = useFirestore()
+  const { createPost } = useFirestore()
   const {
     register,
     handleSubmit,
@@ -17,15 +17,7 @@ const CreatePost = () => {
   } = useForm()
 
   const onSubmit = async (data) => {
-    createPost(
-      userData.username,
-      userData.uid,
-      data.body,
-      "",
-      data.title,
-      uuidv4(),
-      ["todo"]
-    )
+    createPost(data.body, "", data.title, uuidv4(), ["todo"])
   }
 
   const { isSubmitting } = useFormState({ control })
@@ -98,22 +90,3 @@ const CreatePost = () => {
 }
 
 export default CreatePost
-
-/*fb structure
-
-{
-    author, 
-    author_id, 
-    content: {
-        body,
-        excerpt,
-        image,
-        title
-    },
-    date,
-    id,
-    slug,
-    tags: []
-}
-
-*/

@@ -1,6 +1,6 @@
 import defaultAvatar from "assets/images/avatar_placeholder.png"
 
-const ProfileHeader = ({ data, loading }) => {
+const ProfileHeader = ({ avatar, username, bio, profileBg, loading }) => {
   if (loading) return <p className="is-size-1">LOADING...</p>
 
   return (
@@ -9,19 +9,19 @@ const ProfileHeader = ({ data, loading }) => {
         <div className="mr-6 w-32 h-32 rounded-full overflow-hidden">
           <img
             className="object-cover w-full h-full"
-            src={data.avatar || defaultAvatar}
-            alt={`${data.id} profile avatar`}
+            src={avatar || defaultAvatar}
+            alt={`${username} profile avatar`}
           />
         </div>
         <div className="mt-4">
-          <h1 className="text-white bg-gray-900 inline-block capitalise py-1 px-2 lg:text-xl">
-            {data.id}
+          <h1 className="text-white bg-gray-900 inline-block py-1 px-2 lg:text-xl">
+            {username}
           </h1>
-          {data.bio && (
+          {bio && (
             <>
               <br />
               <h2 className="text-white bg-gray-900 inline-block py-1 px-2 text-sm lg:text-md mt-2 max-w-md">
-                {data.bio}
+                {bio}
               </h2>
             </>
           )}
@@ -29,8 +29,8 @@ const ProfileHeader = ({ data, loading }) => {
       </div>
 
       <div className="bg-hero-pattern absolute top-0 left-0 right-0 bottom-0 z-10">
-        {data.profileBg && (
-          <img src={data.profileBg} alt={`${data.id}'s profile background'`} />
+        {profileBg && (
+          <img src={profileBg} alt={`${username}'s profile background'`} />
         )}
       </div>
     </section>

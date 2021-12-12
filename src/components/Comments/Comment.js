@@ -4,7 +4,7 @@ import useFirestore from "hooks/useFirestore"
 import utilities from "hooks/utilities"
 import MediaAvatar from "components/MediaAvatar"
 
-const Comment = ({ comment, username }) => {
+const Comment = ({ comment }) => {
   const { getAvatar } = useFirestore()
   const [avatar, setAvatar] = useState(null)
   const { formatDate } = utilities()
