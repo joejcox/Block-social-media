@@ -44,7 +44,11 @@ const PostPreview = ({ avatar, postData, postId, userCtrl, showAvatar }) => {
       {currentUser && currentUser.uid === author_id
         ? userCtrl && (
             <>
-              <Modal title="Delete Post" isOpen={modalIsOpen}>
+              <Modal
+                title="Delete Post"
+                isOpen={modalIsOpen}
+                overlayClick={closeModal}
+              >
                 <p className="text-sm">
                   Please type{" "}
                   <strong>{confirmationString.toLowerCase()}</strong> below to

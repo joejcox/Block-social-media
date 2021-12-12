@@ -3,6 +3,7 @@
 A community for writers to release creativity and also find inspiration.
 
 ## Live Demo
+
 [https://block.joecoxdev.com/](https://block.joecoxdev.com/)
 
 ## Tech Stack
@@ -11,13 +12,31 @@ A community for writers to release creativity and also find inspiration.
 - Firebase Auth / Firestore / Storage
 - Jest
 
+## Things I have thought about and implemented so far
+
+- functional components and hooks
+- custom hooks
+- form validation
+- authorisation with Firebase
+- CRUD operations using Firebase Firestore
+- private routes based on authorised user
+- dynamic routes for profiles, posts
+- comments on posts
+- react portal for modals (added before body close) with element being removed from DOM on unmount
+- modal focus trap to stop users tabbing around elements behind
+- modal event listener for escape key press to cancel and close
+- modal form validation to delete posts if typed value matches string
+
 ## Project Setup
-```yarn install```
+
+`yarn install`
 
 ## Run Project Locally
-```yarn start```
+
+`yarn start`
 
 ## Edit
+
 I switched to bootstrapping the project with create-react-app due to issues deploying to Vercel.
 
 ## Edit 2
