@@ -69,7 +69,6 @@ const CommentForm = ({ post_id, post_author, comment_count }) => {
                   },
                 })}
                 onChange={(e) => {
-                  console.log("changed")
                   setCharCount(e.target.value.length)
                 }}
               />

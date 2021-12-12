@@ -53,8 +53,6 @@ const UserContextProvider = ({ children }) => {
       })
 
       await updateCommentCount(commentData.parent_id, currentCommentCount)
-
-      console.log("post added")
     } catch (error) {
       console.log(`Error in addComment function: ${error}`)
     }
@@ -64,7 +62,6 @@ const UserContextProvider = ({ children }) => {
     const count = currentCommentCount + 1
 
     try {
-      console.log(post_id)
       const postRef = doc(db, "posts", post_id)
       const postSnap = await getDoc(postRef)
 
@@ -107,7 +104,6 @@ const UserContextProvider = ({ children }) => {
         tags: tags,
       })
 
-      console.log(`Post created successfully`)
       navigate(`/user/${author}/posts/${formattedSlug}`)
     } catch (error) {
       return error
