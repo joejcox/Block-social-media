@@ -19,7 +19,7 @@ const CreatePost = () => {
   const onSubmit = async (data) => {
     let excerpt
     if (data.body.length > 55) {
-      excerpt = (await data.body.substring(0, 55)) + "..."
+      excerpt = (await data.body.substring(0, 100)) + "..."
     } else {
       excerpt = await data.body
     }
