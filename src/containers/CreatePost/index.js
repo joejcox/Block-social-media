@@ -24,7 +24,7 @@ const CreatePost = () => {
       "",
       data.title,
       uuidv4(),
-      ["entertainment", "lifestyle", "inspiration", "poem"]
+      ["todo"]
     )
   }
 
