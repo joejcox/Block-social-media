@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useForm, useFormState } from "react-hook-form"
 import useAuth from "hooks/useAuth"
 import { Link } from "react-router-dom"
+import Button from "components/Layout/Button"
 
 const SignInForm = () => {
   const [firebaseError, setFirebaseError] = useState(null)
@@ -88,12 +89,9 @@ const SignInForm = () => {
           </span>
         )}
       </div>
-      <input
-        type="submit"
-        className="bg-purple-700 mt-4 text-white text-sm py-3 rounded-full w-full md:w-auto md:px-8 cursor-pointer hover:bg-purple-800"
-        disabled={isSubmitting}
-        value={isSubmitting ? "Signing In..." : "Sign In"}
-      />
+      <Button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "Signing In..." : "Sign In"}
+      </Button>
 
       <div className="w-full flex justify-end">
         <Link

@@ -41,7 +41,7 @@ const ConfirmDeleteForm = ({ string, deletePost, close }) => {
           </span>
         )}
       </form>
-      <div className="flex justify-end mt-6">
+      <div className="flex justify-end mt-6 buttons">
         <Button type="button" click={() => close()} outline>
           Cancel
         </Button>
