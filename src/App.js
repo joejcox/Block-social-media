@@ -7,13 +7,10 @@ import SignIn from "containers/SignIn"
 import Dashboard from "containers/Dashboard"
 import Profile from "containers/Profile"
 import PrivateRoute from "containers/PrivateRoute"
-import Modal from "react-modal"
-import Post from "components/Post"
+import Post from "components/Posts/Post"
 import CreatePost from "containers/CreatePost"
 import PasswordReset from "containers/PasswordReset"
 import SiteTitle from "components/SiteTitle"
-
-Modal.setAppElement("#root")
 
 const App = () => {
   return (

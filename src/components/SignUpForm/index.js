@@ -13,7 +13,6 @@ const SignUpForm = () => {
   } = useForm()
 
   const onSubmit = async (data) => {
-    console.log(data)
     await signUp(data.email, data.password, data.username)
       .then((res) => console.log(res))
       .catch((error) => console.log(error))

@@ -1,21 +1,37 @@
 import useAuth from "hooks/useAuth"
-import useFirestore from "hooks/useFirestore"
+import { useEffect } from "react"
 import { TrashIcon } from "@heroicons/react/outline"
 import PostPreviewFooter from "./PostPreviewFooter"
 import PostPreviewAvatar from "./PostPreviewAvatar"
 import PostPreviewContent from "./PostPreviewContent"
 import Modal from "components/Modal"
 import useModal from "hooks/useModal"
-import Button from "components/Layout/Button"
+import ConfirmDeleteForm from "components/ConfirmDeleteForm"
+import useFirestore from "hooks/useFirestore"
 
 const PostPreview = ({ avatar, postData, postId, userCtrl, showAvatar }) => {
-  const { currentUser } = useAuth()
   const { deletePost } = useFirestore()
+  const { currentUser } = useAuth()
   const { content, author, author_id, slug, comment_count } = postData
   const { closeModal, openModal, modalIsOpen } = useModal()
+  const confirmationString = `${author}/${slug}`
 
-  const handleDelete = async () => {
-    await deletePost(postId)
+  useEffect(() => {
+    const checkKeyPress = (e) => {
+      if (e.keyCode === 27) {
+        closeModal()
+      }
+    }
+
+    document.addEventListener("keydown", checkKeyPress)
+
+    return () => {
+      document.removeEventListener("keydown", checkKeyPress)
+    }
+  })
+
+  const handleDelete = () => {
+    deletePost(postId)
     closeModal()
   }
 
@@ -29,13 +45,16 @@ const PostPreview = ({ avatar, postData, postId, userCtrl, showAvatar }) => {
         ? userCtrl && (
             <>
               <Modal title="Delete Post" isOpen={modalIsOpen}>
-                <p>Are you sure you want to delete this post?</p>
-                <div className="flex justify-end mt-6">
-                  <Button click={() => closeModal()} outline>
-                    Cancel
-                  </Button>
-                  <Button click={() => handleDelete()}>Delete</Button>
-                </div>
+                <p className="text-sm">
+                  Please type{" "}
+                  <strong>{confirmationString.toLowerCase()}</strong> below to
+                  remove the post.
+                </p>
+                <ConfirmDeleteForm
+                  deletePost={() => handleDelete()}
+                  close={() => closeModal()}
+                  string={confirmationString}
+                />
               </Modal>
               <div className="absolute right-4 top-4">
                 <button className="text-gray-800" onClick={() => openModal()}>
