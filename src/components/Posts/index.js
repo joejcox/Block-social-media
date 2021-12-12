@@ -51,7 +51,8 @@ const Posts = () => {
 
       usersSnap.forEach((user) => {
         usersArray.push({
-          id: user.id,
+          id: user.data().uid,
+          username: user.data().username,
           avatar: user.data().avatar,
         })
       })
@@ -70,8 +71,9 @@ const Posts = () => {
     return posts.map((post) => {
       if (!users) return null
 
+      console.log(users)
       const user = users.filter(
-        (user) => user.id.toLowerCase() === post.author.toLowerCase()
+        (user) => user.username.toLowerCase() === post.author.toLowerCase()
       )
       const avatar = user[0].avatar
 

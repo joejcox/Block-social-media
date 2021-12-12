@@ -7,7 +7,14 @@ import {
   signOut,
 } from "firebase/auth"
 import auth from "lib/firebase"
-import { doc, setDoc, getDoc, collection, getDocs } from "firebase/firestore"
+import {
+  doc,
+  setDoc,
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore"
 import { db } from "lib/firebase"
 
 export const AuthContext = createContext()
@@ -21,32 +28,44 @@ const AuthContextProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setCurrentUser(user)
-
-        const getDisplayName = async () => {
-          const querySnapshot = await getDocs(collection(db, "users"))
-          querySnapshot.forEach((doc) => {
-            if (user.uid === doc.data().uid) {
-              setDisplayName(doc.id)
-            }
-          })
-        }
-
-        getDisplayName()
+        getDisplayName(user.uid)
       }
     })
 
     return () => unsubscribe()
   }, [])
 
-  const signUp = async (email, password, username) => {
-    const checkDoc = await getDoc(doc(db, "users", username))
-
-    if (checkDoc._document) {
-      setError("Username already exists, please choose another username")
-      return
-    }
-
+  const getDisplayName = async (uid) => {
     try {
+      const usersRef = collection(db, "users")
+      const usersQuery = query(usersRef, where("uid", "==", uid))
+      const usersSnap = await getDocs(usersQuery)
+
+      usersSnap.forEach((user) => {
+        setDisplayName(user.data().username)
+        console.log(user.data())
+      })
+    } catch (error) {
+      console.log("Error in getDisplayName")
+      console.log(error)
+    }
+  }
+
+  const signUp = async (email, password, username) => {
+    try {
+      const usersSnapshot = await getDocs(collection(db, "users"))
+      let usernameExists
+      usersSnapshot.forEach((doc) => {
+        if (username.toLowerCase() === doc.data().username.toLowerCase()) {
+          usernameExists = true
+        }
+      })
+
+      if (usernameExists) {
+        setError("Username already exists, please choose another username")
+        return
+      }
+
       const response = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -54,7 +73,7 @@ const AuthContextProvider = ({ children }) => {
       )
       const { user } = response
 
-      await setDoc(doc(db, "users", username), {
+      await setDoc(doc(db, "users", user.uid), {
         uid: user.uid,
         username: username,
         bio: "",
@@ -67,7 +86,7 @@ const AuthContextProvider = ({ children }) => {
       if (e.code === "auth/email-already-in-use") {
         setError("Email already exists, please use another email")
       } else {
-        setError("Please check the console for more information")
+        setError("Please contact an administrator")
         console.log("Error", e)
       }
     }

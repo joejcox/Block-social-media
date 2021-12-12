@@ -25,14 +25,9 @@ const UserContextProvider = ({ children }) => {
   useEffect(() => {
     const setData = async () => {
       if (!currentUser) return
-      const querySnapshot = query(
-        collection(db, "users"),
-        where("uid", "==", currentUser.uid)
-      )
-      const docRefs = await getDocs(querySnapshot)
-      docRefs.forEach((doc) => {
-        setUserData({ userId: doc.id, ...doc.data() })
-      })
+      const userRef = await getDoc(doc(db, "users", currentUser.uid))
+
+      setUserData({ userId: userRef.id, ...userRef.data() })
     }
 
     setData()
@@ -75,15 +70,7 @@ const UserContextProvider = ({ children }) => {
     }
   }
 
-  const createPost = async (
-    author,
-    author_id,
-    body,
-    image,
-    title,
-    id,
-    tags
-  ) => {
+  const createPost = async (body, image, title, id, tags) => {
     const replaceEmoji = (str) => {
       return str.replace(
         /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
@@ -96,8 +83,8 @@ const UserContextProvider = ({ children }) => {
 
     try {
       await addDoc(collection(db, "posts"), {
-        author: author,
-        author_id: author_id,
+        author: userData.username,
+        author_id: userData.uid,
         comment_count: 0,
         content: {
           body: body,
@@ -110,7 +97,7 @@ const UserContextProvider = ({ children }) => {
         tags: tags,
       })
 
-      navigate(`/user/${author}/posts/${formattedSlug}`)
+      navigate(`/user/${userData.username}/posts/${formattedSlug}`)
     } catch (error) {
       return error
     }
@@ -128,14 +115,16 @@ const UserContextProvider = ({ children }) => {
     }
   }
 
-  const getAvatar = async (author) => {
+  const getAvatar = async (username) => {
     try {
-      const docRef = doc(db, "users", author)
-      const docSnap = await getDoc(docRef)
+      const usersRef = collection(db, "users")
+      const usersSnap = query(usersRef, where("username", "==", username))
+      const docSnap = await getDocs(usersSnap)
 
-      if (!docSnap.exists()) return null
-
-      const userAvatar = docSnap.data().avatar
+      let userAvatar = null
+      docSnap.forEach((user) => {
+        userAvatar = user.data().avatar
+      })
 
       return userAvatar
     } catch (error) {

@@ -5,7 +5,7 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { db } from "lib/firebase"
-import { doc, getDoc } from "firebase/firestore"
+import { collection, getDocs } from "firebase/firestore"
 import UserPosts from "components/Posts/UserPosts"
 import ProfileSkeleton from "components/Skeletons/ProfileSkeleton"
 import ProfileHeader from "containers/Profile/ProfileHeader"
@@ -18,9 +18,12 @@ const Profile = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      const docRef = doc(db, "users", user)
-      const docSnap = await getDoc(docRef)
-      setData({ id: docSnap.id, ...docSnap.data() })
+      const usersRef = collection(db, "users")
+      const usersSnap = await getDocs(usersRef)
+      usersSnap.forEach((docRef) => {
+        if (docRef.data().username.toLowerCase() === user.toLowerCase())
+          setData({ id: docRef.id, ...docRef.data() })
+      })
 
       setLoading(false)
     }
@@ -43,11 +46,11 @@ const Profile = () => {
 
   return (
     <>
-      <SiteTitle title={`${data.id} | Block.'`} />
-      <ProfileHeader data={data} loading={loading} />
+      <SiteTitle title={`${data.username} | Block.`} />
+      <ProfileHeader {...data} loading={loading} />
       <section className="flex px-6">
         <div className="container mx-auto max-w-2xl">
-          <UserPosts author={data.id} />
+          <UserPosts author={data.username} />
         </div>
       </section>
     </>
