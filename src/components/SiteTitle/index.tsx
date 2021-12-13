@@ -1,6 +1,10 @@
 import { Helmet } from "react-helmet-async"
 
-const SiteTitle = ({ title }) => (
+type Title = {
+  title: string
+}
+
+const SiteTitle = ({ title }: Title) => (
   <Helmet>
     <title>{title}</title>
   </Helmet>

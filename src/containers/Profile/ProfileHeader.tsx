@@ -1,6 +1,19 @@
 import defaultAvatar from "assets/images/avatar_placeholder.png"
+interface ProfileHeaderProps {
+  avatar?: string
+  username: string | null
+  bio?: string
+  profileBg?: string
+  loading?: boolean
+}
 
-const ProfileHeader = ({ avatar, username, bio, profileBg, loading }) => {
+const ProfileHeader = ({
+  avatar,
+  username,
+  bio,
+  profileBg,
+  loading,
+}: ProfileHeaderProps) => {
   if (loading) return <p className="is-size-1">LOADING...</p>
 
   return (

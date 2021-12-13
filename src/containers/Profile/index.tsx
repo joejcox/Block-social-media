@@ -5,20 +5,41 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { db } from "lib/firebase"
-import { collection, getDocs } from "firebase/firestore"
+import { collection, CollectionReference, getDocs } from "firebase/firestore"
 import UserPosts from "components/Posts/UserPosts"
-import ProfileSkeleton from "components/Skeletons/ProfileSkeleton"
+// import ProfileSkeleton from "components/Skeletons/ProfileSkeleton"
 import ProfileHeader from "containers/Profile/ProfileHeader"
 import SiteTitle from "components/SiteTitle"
 
+interface GetDocs {
+  avatar: string
+  bio: string
+  email: string
+  uid: string
+  username: string
+  data: object
+}
+
+interface SetData {
+  id: string | null
+  username: string | null
+  data: object | null
+}
+
 const Profile = () => {
-  const { user } = useParams()
+  const { user } = useParams() as {
+    user: string
+  }
   const [loading, setLoading] = useState(true)
-  const [data, setData] = useState({ username: null, data: null })
+  const [data, setData] = useState<SetData>({
+    id: null,
+    username: null,
+    data: null,
+  })
 
   useEffect(() => {
     const getUser = async () => {
-      const usersRef = collection(db, "users")
+      const usersRef = collection(db, "users") as CollectionReference<GetDocs>
       const usersSnap = await getDocs(usersRef)
       usersSnap.forEach((docRef) => {
         if (docRef.data().username.toLowerCase() === user.toLowerCase())
@@ -31,11 +52,9 @@ const Profile = () => {
     getUser()
   }, [user])
 
-  if (loading) {
-    return <ProfileSkeleton />
-  }
+  // if (loading) return <ProfileSkeleton />
 
-  if (!data.id) {
+  if (!data) {
     return (
       <>
         <SiteTitle title="No user exists | Block." />

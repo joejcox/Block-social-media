@@ -1,8 +1,13 @@
 import { useState } from "react"
-import { useForm, useFormState } from "react-hook-form"
+import { /*SubmitHandler,*/ useForm, useFormState } from "react-hook-form"
 import useAuth from "hooks/useAuth"
 import { Link } from "react-router-dom"
 import Button from "components/Layout/Button"
+
+// interface FormValues {
+//   email: string
+//   password: string
+// }
 
 const SignInForm = () => {
   const [firebaseError, setFirebaseError] = useState(null)
@@ -14,9 +19,11 @@ const SignInForm = () => {
     control,
     formState: { errors },
   } = useForm()
+  // } = useForm<FormValues>()
 
   const { isSubmitting } = useFormState({ control })
 
+  // const onSubmit: SubmitHandler<FormValues> = async (data) => {
   const onSubmit = async (data) => {
     await signIn(data.email, data.password)
       .then((response) => console.log(response))
