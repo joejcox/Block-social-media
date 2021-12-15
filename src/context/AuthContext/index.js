@@ -43,7 +43,6 @@ const AuthContextProvider = ({ children }) => {
 
       usersSnap.forEach((user) => {
         setDisplayName(user.data().username)
-        console.log(user.data())
       })
     } catch (error) {
       console.log("Error in getDisplayName")

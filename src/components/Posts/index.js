@@ -71,7 +71,6 @@ const Posts = () => {
     return posts.map((post) => {
       if (!users) return null
 
-      console.log(users)
       const user = users.filter(
         (user) => user.username.toLowerCase() === post.author.toLowerCase()
       )
