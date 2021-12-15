@@ -21,6 +21,9 @@ module.exports = {
       sans: ["Graphik", "sans-serif"],
       serif: ["Merriweather", "serif"],
     },
+    wordBreak: {
+      "break-word": "break-word",
+    },
     extend: {
       spacing: {
         "8xl": "96rem",
