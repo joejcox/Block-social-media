@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import { formatDate } from "lib/utils"
 import useFirestore from "hooks/useFirestore"
-import utilities from "hooks/utilities"
 import MediaAvatar from "components/MediaAvatar"
 
 const Comment = ({ comment }) => {
   const { getAvatar } = useFirestore()
   const [avatar, setAvatar] = useState(null)
-  const { formatDate } = utilities()
 
   useEffect(() => {
     getAvatar(comment.author).then((res) => setAvatar(res))

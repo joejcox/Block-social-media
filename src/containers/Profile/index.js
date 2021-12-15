@@ -1,7 +1,3 @@
-// pull in url params since we always put just the username at the end of the URL
-// check firestore that a collection exists with said username
-// get matched user's data
-// show default avatar image if avatar data is === ""
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { db } from "lib/firebase"

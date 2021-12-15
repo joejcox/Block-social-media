@@ -1,5 +1,5 @@
-// import { useState } from "react"
-// import useModal from "hooks/useModal"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import useFirestore from "hooks/useFirestore"
 import { useForm, useFormState } from "react-hook-form"
 import { v4 as uuidv4 } from "uuid"
@@ -8,7 +8,9 @@ import Section from "components/Layout/Section"
 import PageTitle from "components/Layout/PageTitle"
 
 const CreatePost = () => {
-  const { createPost } = useFirestore()
+  const navigate = useNavigate()
+  const { createPost, userData } = useFirestore()
+  const [createPostError, setCreatePostError] = useState(null)
   const {
     register,
     handleSubmit,
@@ -17,7 +19,22 @@ const CreatePost = () => {
   } = useForm()
 
   const onSubmit = async (data) => {
-    createPost(data.body, "", data.title, uuidv4(), ["todo"])
+    if (!userData) return setCreatePostError("No active user")
+
+    const response = await createPost(
+      data.body,
+      "",
+      data.title,
+      uuidv4(),
+      ["todo"],
+      userData.uid
+    )
+
+    if (response.error) {
+      return setCreatePostError(response.error)
+    }
+
+    navigate(`/user/${userData.username}/posts/${response}`)
   }
 
   const { isSubmitting } = useFormState({ control })
@@ -32,10 +49,15 @@ const CreatePost = () => {
           onSubmit={(e) => e.preventDefault()}
           autoComplete="off"
         >
+          {createPostError && (
+            <span className="text-red-500 text-sm block pl-2 mb-4">
+              {createPostError}
+            </span>
+          )}
           <div className="form-field">
             <input
               type="text"
-              className="rounded-lg px-4 py-2 w-full shadow border border-gray-100 text-gray-700"
+              className="rounded-lg px-4 py-2 w-full shadow border border-gray-100 text-gray-700 outline-white"
               placeholder="Post title"
               {...register("title", {
                 required: {
@@ -49,14 +71,14 @@ const CreatePost = () => {
               })}
             />
             {errors.title && (
-              <span className="is-block has-text-danger is-size-7">
+              <span className="text-red-500 block text-xs pt-2">
                 {errors.title.message}
               </span>
             )}
           </div>
           <div className="form-field my-6">
             <textarea
-              className="rounded textarea shadow border border-gray-100 w-full p-8 text-gray-700"
+              className="rounded textarea shadow border border-gray-100 w-full p-8 text-gray-700 outline-white pt-2"
               placeholder="Once upon a time..."
               rows="10"
               {...register("body", {
@@ -71,7 +93,7 @@ const CreatePost = () => {
               })}
             ></textarea>
             {errors.body && (
-              <span className="is-block has-text-danger is-size-7">
+              <span className="text-red-500 block text-xs">
                 {errors.body.message}
               </span>
             )}

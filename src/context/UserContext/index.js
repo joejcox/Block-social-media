@@ -12,13 +12,12 @@ import {
 } from "firebase/firestore"
 import { db } from "lib/firebase"
 import useAuth from "hooks/useAuth"
-import { useNavigate } from "react-router-dom"
 import defaultAvatar from "assets/images/avatar_placeholder.png"
+import { cleanUpTitle } from "lib/utils"
 
 export const UserContext = createContext()
 
 const UserContextProvider = ({ children }) => {
-  const navigate = useNavigate()
   const [userData, setUserData] = useState(null)
   const { currentUser } = useAuth()
 
@@ -32,13 +31,6 @@ const UserContextProvider = ({ children }) => {
 
     setData()
   }, [currentUser])
-
-  const convertToSlug = (slug) => {
-    return slug
-      .toLowerCase()
-      .replace(/[^\w ]+/g, "")
-      .replace(/ +/g, "-")
-  }
 
   const addComment = async (commentData, currentCommentCount) => {
     try {
@@ -70,16 +62,39 @@ const UserContextProvider = ({ children }) => {
     }
   }
 
-  const createPost = async (body, image, title, id, tags) => {
-    const replaceEmoji = (str) => {
-      return str.replace(
-        /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
-        "moji"
-      )
-    }
+  // for use in create post and update post. It will check if a post title already exists within users posts titles
+  const checkIfUserHasPostWithSameTitle = async (author_id, title) => {
+    try {
+      const postsRef = collection(db, "posts")
+      const postsQuery = query(postsRef, where("author_id", "==", author_id))
+      const postsSnap = await getDocs(postsQuery)
+      let postsList = []
+      postsSnap.forEach((post) => {
+        const lowercase_post_title = post
+          .data()
+          .content.title.toLowerCase()
+          .trim()
+        if (lowercase_post_title === title.toLowerCase().trim()) {
+          postsList.push(post.data().content.title)
+        }
+      })
 
-    const cleanedTitle = await replaceEmoji(title)
-    const formattedSlug = await convertToSlug(cleanedTitle)
+      if (postsList.length > 0) {
+        return true
+      } else {
+        return false
+      }
+    } catch (error) {
+      return error
+    }
+  }
+
+  const createPost = async (body, image, title, id, tags, uid) => {
+    const { cleanedTitle, formattedSlug } = cleanUpTitle(title)
+
+    const titleExists = await checkIfUserHasPostWithSameTitle(uid, cleanedTitle)
+
+    if (titleExists) return { error: "A post with this title already exists" }
 
     try {
       await addDoc(collection(db, "posts"), {
@@ -97,13 +112,43 @@ const UserContextProvider = ({ children }) => {
         tags: tags,
       })
 
-      navigate(`/user/${userData.username}/posts/${formattedSlug}`)
+      return formattedSlug
     } catch (error) {
       return error
     }
   }
 
-  // const getCommentCount = async (id) => {}
+  const updatePost = async ({ author, author_id, post_ref, content, tags }) => {
+    const { cleanedTitle, formattedSlug } = cleanUpTitle(content.title)
+
+    const titleExists = await checkIfUserHasPostWithSameTitle(
+      author_id,
+      cleanedTitle
+    )
+
+    if (titleExists)
+      return {
+        error:
+          "A post with this title already exists, please use another title",
+      }
+
+    try {
+      const docRef = doc(db, "posts", post_ref)
+
+      await updateDoc(docRef, {
+        content: {
+          body: content.body,
+          title: content.title,
+        },
+        slug: formattedSlug,
+        edited: new Date(),
+        tags: tags,
+      })
+      return formattedSlug
+    } catch (error) {
+      return { error: error }
+    }
+  }
 
   const deletePost = async (id) => {
     try {
@@ -138,6 +183,7 @@ const UserContextProvider = ({ children }) => {
     deletePost,
     addComment,
     getAvatar,
+    updatePost,
   }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>

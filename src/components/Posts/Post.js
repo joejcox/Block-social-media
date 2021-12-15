@@ -7,10 +7,16 @@ import Tags from "components/Tags"
 import AllPostsSkeleton from "components/Skeletons/AllPostsSkeleton"
 import Comments from "components/Comments"
 import PageTitle from "components/Layout/PageTitle"
+import { formatDate } from "lib/utils"
+import EditPost from "components/EditPost"
+import useAuth from "hooks/useAuth"
 
 const Post = () => {
+  const { currentUser } = useAuth()
   const [thePost, setThePost] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [isEditing, setIsEditing] = useState(false)
+
   const { post } = useParams()
 
   useEffect(() => {
@@ -28,54 +34,67 @@ const Post = () => {
     setLoading(false)
   }, [post])
 
+  const handleEditMode = () => {
+    setIsEditing(!isEditing)
+  }
+
   if (loading) return <AllPostsSkeleton />
 
   if (!thePost) return null
 
   const {
     author,
+    author_id,
     post_ref,
     content: { title, body },
     date: { seconds },
     tags,
   } = thePost
 
-  const timestamp = seconds
-  const date = new Date(timestamp * 1000)
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hours = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()
-  const minutes =
-    date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()
-  const fullDate = `${day}/${month}/${year}`
-  const postTime = `${hours}:${minutes}`
+  const { date, time } = formatDate(seconds)
 
   return (
     <>
-      <section className="px-6 flex flex-col">
-        <div className="container mx-auto max-w-2xl text-center">
-          <header className="mb-8">
-            <PageTitle mb={8}>{title}</PageTitle>
-            <div className="tags">
-              <Tags data={tags} />
-            </div>
-          </header>
-        </div>
-        <div className="container mx-auto max-w-2xl">
-          <p className="bg-gray-50 rounded-xl p-8 text-gray-700">{body}</p>
-          <footer className="text-center py-8 text-xs text-gray-600">
-            Created by{" "}
-            <Link
-              to={`/user/${author}`}
-              className="text-purple-700 hover:underline"
-            >
-              {author}
-            </Link>{" "}
-            on {fullDate} at {postTime}
-          </footer>
-        </div>
-      </section>
+      {isEditing ? (
+        <EditPost
+          initialState={{ ...thePost }}
+          editMode={handleEditMode}
+          editing={isEditing}
+          setIsEditing={setIsEditing}
+        />
+      ) : (
+        <section className="px-6 flex flex-col">
+          <div className="container mx-auto max-w-2xl text-center">
+            <header className="mb-8 relative">
+              {currentUser !== null && author_id === currentUser.uid && (
+                <span
+                  onClick={handleEditMode}
+                  className="text-purple-700 cursor-pointer absolute right-0 top-0"
+                >
+                  Edit Post
+                </span>
+              )}
+              <PageTitle mb={8}>{title}</PageTitle>
+              <div className="tags">
+                <Tags data={tags} />
+              </div>
+            </header>
+          </div>
+          <div className="container mx-auto max-w-2xl">
+            <p className="bg-gray-50 rounded-xl p-8 text-gray-700">{body}</p>
+            <footer className="text-center py-8 text-xs text-gray-600">
+              Created by{" "}
+              <Link
+                to={`/user/${author}`}
+                className="text-purple-700 hover:underline"
+              >
+                {author}
+              </Link>{" "}
+              on {date} at {time}
+            </footer>
+          </div>
+        </section>
+      )}
       <Comments post_id={post_ref} post_author={author} />
     </>
   )
