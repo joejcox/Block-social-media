@@ -29,10 +29,7 @@ const Comment = ({ comment }) => {
               {comment.author}
             </Link>
           </h4>
-          <p
-            className="my-4 break-words"
-            style={{ "word-break": "break-word" }}
-          >
+          <p className="my-4 break-words" style={{ wordBreak: "break-word" }}>
             {comment.content}
           </p>
         </div>
