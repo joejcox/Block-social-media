@@ -6,7 +6,6 @@ import {
   query,
   orderBy,
   getDocs,
-  limit,
 } from "firebase/firestore"
 import { db } from "lib/firebase"
 import AllPostsSkeleton from "components/Skeletons/AllPostsSkeleton"
@@ -15,11 +14,10 @@ const Posts = () => {
   const [loading, setLoading] = useState(true)
   const [posts, setPosts] = useState(null)
   const [users, setUsers] = useState(null)
-  const [limitBy, setLimitBy] = useState(8)
 
   useEffect(() => {
     const docRef = collection(db, "posts")
-    const snapRef = query(docRef, orderBy("date", "desc"), limit(limitBy))
+    const snapRef = query(docRef, orderBy("date", "desc"))
     const unsubscribe = onSnapshot(
       snapRef,
       (docs) => {
@@ -42,21 +40,7 @@ const Posts = () => {
     setLoading(false)
 
     return () => unsubscribe()
-  }, [limitBy])
-
-  useEffect(() => {
-    const loadMorePosts = (e) => {
-      const { scrollTop, scrollHeight, clientHeight } =
-        e.target.scrollingElement
-      if (scrollHeight - scrollTop < clientHeight + 1) {
-        setLimitBy(limitBy + 8)
-      }
-    }
-
-    document.addEventListener("scroll", loadMorePosts)
-
-    return () => document.removeEventListener("scroll", loadMorePosts)
-  }, [limitBy, setLimitBy])
+  }, [])
 
   useEffect(() => {
     if (!posts) return null

@@ -35,8 +35,8 @@ const UserNav = () => {
   if (!userData) return null
 
   return (
-    <div className="open user-nav relative" ref={nav} onClick={handleClick}>
-      <div className="group-open:bg-orange-700 user-nav--identity flex items-center cursor-pointer h-full px-5 border-l border-r border-gray-200">
+    <div className="user-nav relative" ref={nav} onClick={handleClick}>
+      <div className="user-nav--identity flex items-center cursor-pointer h-full px-5 border-l border-r border-gray-200">
         <div className="w-8 h-8 mr-0 lg:mr-2 overflow-hidden rounded-lg border border-white">
           <img
             src={userData.avatar || defaultAvatar}
