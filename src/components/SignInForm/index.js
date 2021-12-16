@@ -50,7 +50,7 @@ const SignInForm = () => {
       <div className="form-field">
         <input
           type="email"
-          className="block placeholder-purple-700 text-purple-700 mb-2 bg-purple-100 w-full p-4 rounded-lg focus:bg-purple-200 outline-white"
+          className="block placeholder-main-700 text-main-700 mb-2 bg-main-100 w-full p-4 rounded-lg focus:bg-main-200 outline-white"
           placeholder="Email"
           {...register("email", {
             required: {
@@ -73,7 +73,7 @@ const SignInForm = () => {
       <div className="field">
         <input
           type="password"
-          className="block placeholder-purple-700 text-purple-700 mb-2 bg-purple-100 w-full p-4 rounded-lg focus:bg-purple-200 outline-white"
+          className="block placeholder-main-700 text-main-700 mb-2 bg-main-100 w-full p-4 rounded-lg focus:bg-main-200 outline-white"
           placeholder="Password"
           {...register("password", {
             required: "Field can not be empty",
@@ -100,7 +100,7 @@ const SignInForm = () => {
       <div className="w-full flex justify-end">
         <Link
           to="/account/reset-password"
-          className="text-purple-700 mt-6 inline-block hover:underline"
+          className="text-main-700 mt-6 inline-block hover:underline"
         >
           Forgotten password?
         </Link>

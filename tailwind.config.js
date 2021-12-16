@@ -16,10 +16,14 @@ module.exports = {
       red: colors.red,
       violet: colors.violet,
       purple: colors.purple,
+      main: colors.violet,
     },
     fontFamily: {
       sans: ["Graphik", "sans-serif"],
       serif: ["Merriweather", "serif"],
+      primary: ["Roboto Slab", "serif"],
+      // primary: ["'Baloo Bhaijaan 2'", "cursive"],
+      secondary: ["Nunito Sans", "sans-serif"],
     },
     wordBreak: {
       "break-word": "break-word",

@@ -11,6 +11,7 @@ import Post from "components/Posts/Post"
 import CreatePost from "containers/CreatePost"
 import PasswordReset from "containers/PasswordReset"
 import SiteTitle from "components/SiteTitle"
+import Settings from "containers/Settings"
 
 const App = () => {
   return (
@@ -23,18 +24,15 @@ const App = () => {
             <Route path="/account/sign-in" element={<SignIn />} />
             <Route path="/account/reset-password" element={<PasswordReset />} />
           </Route>
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
+          <Route path="/" element={<PrivateRoute />}>
+            <Route index path="/" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/settings" element={<Settings />} />
+          </Route>
           <Route path="/user/:user" element={<Profile />} />
           <Route path="/user/:user/posts/:post" element={<Post />} />
           <Route path="/create-post" element={<CreatePost />} />
-          <Route path="/" element={<Home />} />
+
           <Route path="*" element={<div>404</div>} />
         </Routes>
       </Layout>

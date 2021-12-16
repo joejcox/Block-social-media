@@ -34,13 +34,13 @@ const Navbar = () => {
   return (
     <nav className="flex items-center pr-4 lg:pr-0" role="navigation">
       <Link
-        className="flex rounded-full text-base py-2 px-6 items-center font-sans bg-gray-100 text-purple-700 hover:bg-purple-400 hover:text-white"
+        className="flex rounded-full text-base py-2 px-6 items-center font-sans bg-gray-100 text-main-700 hover:bg-main-400 hover:text-white"
         to="/account/sign-in"
       >
         Sign In
       </Link>
       <Link
-        className="rounded-full flex text-base py-2 px-6 items-center ml-2 font-sans hover:bg-purple-800 bg-purple-700 text-white"
+        className="rounded-full flex text-base py-2 px-6 items-center ml-2 font-sans hover:bg-main-800 bg-main-700 text-white"
         to="/account/sign-up"
       >
         Sign Up

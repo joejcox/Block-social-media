@@ -100,7 +100,7 @@ const CreatePost = () => {
           </div>
           <input
             type="submit"
-            className="bg-purple-700 text-white text-sm py-3 rounded-full w-full lg:w-auto lg:px-8 cursor-pointer hover:bg-purple-800"
+            className="bg-main-700 text-white text-sm py-3 rounded-full w-full lg:w-auto lg:px-8 cursor-pointer hover:bg-main-800"
             disabled={isSubmitting}
             onClick={handleSubmit(onSubmit)}
             value={isSubmitting ? "Creating Post..." : "Create Post"}

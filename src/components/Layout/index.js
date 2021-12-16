@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
     <AuthContextProvider>
       <UserContextProvider>
         <HelmetProvider>
-          <div className="h-screen mb-10">
+          <div className="h-screen mb-10 font-secondary">
             <Header />
             <main className="main" role="main">
               {children}

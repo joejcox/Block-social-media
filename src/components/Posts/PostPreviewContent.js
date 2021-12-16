@@ -11,9 +11,9 @@ const PostPreviewContent = ({ postData }) => {
   return (
     <div className="content px-6">
       <header className="post-header">
-        <h2 className="text-2xl mb-3 break-words">
+        <h2 className="text-2xl mb-3 break-words font-primary">
           <Link
-            className="text-purple-700 hover:text-purple-800 hover:underline"
+            className="text-main-700 hover:text-main-800 hover:underline"
             to={`/user/${author}/posts/${slug}`}
           >
             {content.title}
@@ -23,7 +23,9 @@ const PostPreviewContent = ({ postData }) => {
           <Tags data={tags} />
         </div>
       </header>
-      <p className="post-excerpt pb-6 text-sm break-words">{excerpt}</p>
+      <p className="post-excerpt pb-6 break-words text-md leading-6">
+        {excerpt}
+      </p>
     </div>
   )
 }

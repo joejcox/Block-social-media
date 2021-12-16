@@ -69,7 +69,7 @@ const Post = () => {
               {currentUser !== null && author_id === currentUser.uid && (
                 <span
                   onClick={handleEditMode}
-                  className="text-purple-700 cursor-pointer absolute right-0 top-0"
+                  className="text-main-700 cursor-pointer absolute right-0 top-0"
                 >
                   Edit Post
                 </span>
@@ -81,14 +81,14 @@ const Post = () => {
             </header>
           </div>
           <div className="container mx-auto max-w-2xl">
-            <p className="bg-gray-50 rounded-xl p-8 text-gray-700 break-words">
+            <p className="bg-gray-50 rounded-xl p-8 text-gray-700 break-words text-md leading-6">
               {body}
             </p>
             <footer className="text-center py-8 text-xs text-gray-600">
               Created by{" "}
               <Link
                 to={`/user/${author}`}
-                className="text-purple-700 hover:underline"
+                className="text-main-700 hover:underline"
               >
                 {author}
               </Link>{" "}

@@ -30,7 +30,7 @@ const SignUpForm = () => {
       <div className="field">
         <input
           type="text"
-          className="block placeholder-purple-700 text-purple-700 mb-2 bg-purple-100 w-full p-4 rounded-lg focus:bg-purple-200 outline-white"
+          className="block placeholder-main-700 text-main-700 mb-2 bg-main-100 w-full p-4 rounded-lg focus:bg-main-200 outline-white"
           placeholder="Username"
           {...register("username", {
             required: {
@@ -61,7 +61,7 @@ const SignUpForm = () => {
       <div className="field">
         <input
           type="email"
-          className="block placeholder-purple-700 text-purple-700 mb-2 bg-purple-100 w-full p-4 rounded-lg focus:bg-purple-200 outline-white"
+          className="block placeholder-main-700 text-main-700 mb-2 bg-main-100 w-full p-4 rounded-lg focus:bg-main-200 outline-white"
           placeholder="Email"
           {...register("email", {
             required: {
@@ -84,7 +84,7 @@ const SignUpForm = () => {
       <div className="field">
         <input
           type="password"
-          className="block placeholder-purple-700 text-purple-700 mb-2 bg-purple-100 w-full p-4 rounded-lg focus:bg-purple-200 outline-white"
+          className="block placeholder-main-700 text-main-700 mb-2 bg-main-100 w-full p-4 rounded-lg focus:bg-main-200 outline-white"
           name="password"
           placeholder="Password"
           {...register("password", {
@@ -105,7 +105,7 @@ const SignUpForm = () => {
         <input
           type="password"
           name="passwordDuplicate"
-          className="block placeholder-purple-700 text-purple-700 mb-2 bg-purple-100 w-full p-4 rounded-lg focus:bg-purple-200 outline-white"
+          className="block placeholder-main-700 text-main-700 mb-2 bg-main-100 w-full p-4 rounded-lg focus:bg-main-200 outline-white"
           placeholder="Repeat password"
           {...register("passwordDuplicate", {
             required: "You must confirm your password",

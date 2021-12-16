@@ -42,7 +42,7 @@ const CommentForm = ({ post_id, post_author, comment_count }) => {
   return (
     <section className="flex flex-col py-20 border-b border-t border-gray-200 lg:border-0">
       <div className="container rounded-xl lg:bg-gray-50 lg:p-12 mx-auto max-w-6xl flex flex-col">
-        <h3 className="text-2xl inline-block mb-4 md:mb-10 pb-2 mx-auto px-2 text-purple-700">
+        <h3 className="text-2xl inline-block mb-4 md:mb-10 pb-2 mx-auto px-2 text-main-700 font-primary">
           Add Comment
         </h3>
         <article className="flex">

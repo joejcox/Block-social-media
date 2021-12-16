@@ -8,9 +8,7 @@ const Modal = ({ overlayClick, children, title, isOpen }) => {
       <FocusTrap>
         <div className="px-6 fixed z-50 top-0 left-0 right-0 bottom-0 flex items-center justify-center">
           <div className="bg-white rounded-lg shadow p-12 w-full sm:w-2/3 lg:w-2/5 z-50">
-            {title && (
-              <h4 className="text-purple-700 text-3xl mb-4">{title}</h4>
-            )}
+            {title && <h4 className="text-main-700 text-3xl mb-4">{title}</h4>}
             {children}
           </div>
           <div

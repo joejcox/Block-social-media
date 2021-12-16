@@ -25,7 +25,7 @@ const ConfirmDeleteForm = ({ string, deletePost, close }) => {
       >
         <input
           type="text"
-          className="mt-2 block placeholder-purple-700 text-purple-700 mb-2 bg-purple-100 w-full p-4 rounded-lg focus:bg-purple-200 outline-white"
+          className="mt-2 block placeholder-main-700 text-main-700 mb-2 bg-main-100 w-full p-4 rounded-lg focus:bg-main-200 outline-white"
           {...register("confirm", {
             required: "Please copy the above text to confirm deletion",
             validate: {
