@@ -12,7 +12,7 @@ const SidebarLink = ({ children, route, icon }) => {
         match
           ? "text-main-700 border-l-8 border-main-700 bg-gray-100"
           : "text-gray-500"
-      } block px-10 group hover:bg-gray-50`}
+      } block px-10 group hover:bg-gray-50 tracking-wide uppercase`}
       style={
         match && { borderTop: "1px solid #ddd", borderBottom: "1px solid #ddd" }
       }
@@ -20,7 +20,7 @@ const SidebarLink = ({ children, route, icon }) => {
       <span
         className={`${
           match ? "" : "border-b border-gray-200"
-        } flex items-center px-4 py-5 font-bold text-sm group-hover:text-main-700`}
+        } flex items-center px-4 py-5 font-bold text-xs group-hover:text-main-700`}
       >
         {icon && (
           <IconComponent
