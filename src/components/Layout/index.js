@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
         <HelmetProvider>
           <div
             className="mb-10 min-h-screen font-secondary bg-purple-50 h-full"
-            style={{ paddingTop: "73px" }}
+            style={{ paddingTop: "70px" }}
           >
             <Header />
             <main className="main" role="main">
