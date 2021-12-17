@@ -8,7 +8,8 @@ import {
   getDocs,
 } from "firebase/firestore"
 import { db } from "lib/firebase"
-import AllPostsSkeleton from "components/Skeletons/AllPostsSkeleton"
+// import AllPostsSkeleton from "components/Skeletons/AllPostsSkeleton"
+import LoadingDots from "components/Skeletons/LoadingDots"
 
 const Posts = () => {
   const [loading, setLoading] = useState(true)
@@ -63,7 +64,8 @@ const Posts = () => {
     getUsers()
   }, [posts])
 
-  if (loading) return <AllPostsSkeleton />
+  if (loading) return <LoadingDots />
+  // if (loading) return <AllPostsSkeleton />
 
   if (!posts) return null
 
