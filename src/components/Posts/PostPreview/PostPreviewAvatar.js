@@ -4,8 +4,8 @@ import defaultAvatar from "assets/images/avatar_placeholder.png"
 const PostPreviewAvatar = ({ author, alt, avatar, showAvatar }) => {
   if (!showAvatar) return null
   return (
-    <figure className="media-left absolute -top-7 left-5">
-      <p className="w-14 h-14 overflow-hidden rounded-2xl border-4 border-white shadow-lg">
+    <figure className="media-left absolute -top-6 left-10">
+      <p className="w-12 h-12 overflow-hidden rounded">
         <Link to={`/user/${author}`}>
           <img
             className="h-full w-full object-cover"

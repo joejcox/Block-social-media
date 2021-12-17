@@ -1,4 +1,4 @@
-import Header from "./Header"
+import Header from "components/Layout/Header"
 import AuthContextProvider from "context/AuthContext"
 import UserContextProvider from "context/UserContext"
 import ReactTooltip from "react-tooltip"

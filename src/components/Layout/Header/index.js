@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import Navbar from "./Navbar"
+import Navbar from "components/Layout/Header/Navbar"
 import mobileLogo from "assets/images/block-icon.png"
 import useAuth from "hooks/useAuth"
 

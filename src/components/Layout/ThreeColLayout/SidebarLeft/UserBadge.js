@@ -8,8 +8,8 @@ const UserBadge = () => {
   if (!userData) return null
 
   return (
-    <div className="mb-4 w-full rounded-2xl pt-2 px-4 flex items-center">
-      <div className="w-8 h-8 bg-gray-200 rounded-lg overflow-hidden mr-3">
+    <div className="mb-4 w-full rounded border border-gray-200 bg-white py-4 px-10 flex items-center">
+      <div className="w-8 h-8 bg-gray-200 rounded overflow-hidden mr-3">
         <Link to={`/user/${userData.username}`}>
           <img
             className="object-cover w-full h-full"
@@ -18,8 +18,11 @@ const UserBadge = () => {
           />
         </Link>
       </div>
-      <h4 className="text-md font-bold font-primary">
-        <Link className="text-main-700" to={`/user/${userData.username}`}>
+      <h4 className="text-md tracking-wide font-primary">
+        <Link
+          className="text-main-700 leading-6"
+          to={`/user/${userData.username}`}
+        >
           @{userData.username}
         </Link>
       </h4>

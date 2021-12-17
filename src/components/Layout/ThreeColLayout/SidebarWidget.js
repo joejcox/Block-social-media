@@ -1,7 +1,5 @@
 const SidebarWidget = ({ children, py }) => (
-  <div
-    className={`bg-white shadow-md border border-gray-100 w-full py-${py} rounded-2xl`}
-  >
+  <div className={`bg-white border border-main-200 w-full py-${py} rounded`}>
     {children}
   </div>
 )

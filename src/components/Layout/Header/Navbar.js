@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { Link } from "react-router-dom"
 import useAuth from "hooks/useAuth"
 import UserNav from "./UserNav"
-import { GrAddCircle } from "react-icons/gr"
+import { PlusIcon } from "@heroicons/react/outline"
 import ReactTooltip from "react-tooltip"
 
 const Navbar = () => {
@@ -14,7 +14,7 @@ const Navbar = () => {
     return (
       <div className="nav-right flex items-stretch">
         <Link
-          className="hidden lg:flex text-base items-center px-4 font-sans hover:bg-gray-100"
+          className="hidden lg:flex text-sm tracking-wider items-center px-4 font-sans hover:bg-gray-100"
           to="/dashboard"
         >
           Home
@@ -24,7 +24,7 @@ const Navbar = () => {
           to="/create-post"
           data-tip="Create Post"
         >
-          <GrAddCircle className="stroke-1 group-hover:stroke-white" />
+          <PlusIcon className="w-4" />
         </Link>
         <UserNav />
       </div>

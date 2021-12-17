@@ -36,11 +36,7 @@ const PostPreview = ({ avatar, postData, postId, userCtrl, showAvatar }) => {
   }
 
   return (
-    <article
-      className={`w-full p-0 relative ${
-        showAvatar ? "mb-20" : "mb-6"
-      } border-b border-gray-200`}
-    >
+    <article className={`w-full p-0 relative ${showAvatar ? "mb-20" : "mb-6"}`}>
       {currentUser && currentUser.uid === author_id
         ? userCtrl && (
             <>
@@ -75,7 +71,7 @@ const PostPreview = ({ avatar, postData, postId, userCtrl, showAvatar }) => {
         showAvatar={showAvatar}
       />
 
-      <div className="mt-1 pt-12 rounded-lg overflow-hidden flex-1 bg-gradient-to-r bg-white shadow">
+      <div className="mt-1 pt-12 rounded-lg overflow-hidden bg-white border border-main-200">
         <PostPreviewContent postData={{ ...postData }} />
 
         <PostPreviewFooter
