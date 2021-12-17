@@ -52,7 +52,7 @@ const PostsListLimited = () => {
         return (
           <article key={post.id}>
             <Link
-              className="block py-4 border-b border-gray-200 text-gray-400 hover:text-purple-700"
+              className="block py-4 border-b border-gray-200 text-gray-400 hover:text-main-700"
               to={`/user/${post.author}/posts/${post.slug}`}
             >
               {title}
@@ -67,7 +67,7 @@ const PostsListLimited = () => {
       {postsList}
       <div className="flex justify-end my-4">
         <Link
-          className="text-xs text-purple-700 hover:underline"
+          className="text-xs text-main-700 hover:underline"
           to={`/user/${userData.username}`}
         >
           View All
