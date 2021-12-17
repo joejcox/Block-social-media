@@ -9,7 +9,10 @@ const Layout = ({ children }) => {
     <AuthContextProvider>
       <UserContextProvider>
         <HelmetProvider>
-          <div className="h-screen mb-10 font-secondary">
+          <div
+            className="mb-10 min-h-screen font-secondary bg-purple-50 h-full"
+            style={{ paddingTop: "73px" }}
+          >
             <Header />
             <main className="main" role="main">
               {children}

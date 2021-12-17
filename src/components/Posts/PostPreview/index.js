@@ -75,7 +75,7 @@ const PostPreview = ({ avatar, postData, postId, userCtrl, showAvatar }) => {
         showAvatar={showAvatar}
       />
 
-      <div className="mt-1 pt-12 rounded-lg overflow-hidden bg-gray-100 flex-1">
+      <div className="mt-1 pt-12 rounded-lg overflow-hidden flex-1 bg-gradient-to-r bg-white shadow">
         <PostPreviewContent postData={{ ...postData }} />
 
         <PostPreviewFooter

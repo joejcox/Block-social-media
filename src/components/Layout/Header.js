@@ -4,7 +4,10 @@ import mobileLogo from "assets/images/block-icon.png"
 
 const Header = () => (
   //site_header px-6
-  <header className="px-0 lg:px-4 xl:px-16 3xl:px-32 shadow">
+  <header
+    className="px-0 lg:px-4 xl:px-16 3xl:px-32 shadow bg-white fixed top-0 left-0 right-0"
+    style={{ zIndex: "999" }}
+  >
     <nav
       className="nav flex justify-between is-align-items-center"
       role="navigation"

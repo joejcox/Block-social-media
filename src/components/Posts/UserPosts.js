@@ -3,7 +3,7 @@ import { collection, onSnapshot, query, where } from "firebase/firestore"
 import { db } from "lib/firebase"
 import AllPostsSkeleton from "components/Skeletons/AllPostsSkeleton"
 
-import PostPreview from "./PostPreview"
+import PostPreview from "components/Posts/PostPreview"
 
 const UserPosts = ({ author }) => {
   const [loading, setLoading] = useState(true)

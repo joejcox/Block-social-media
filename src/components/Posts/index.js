@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import PostPreview from "./PostPreview"
+import PostPreview from "components/Posts/PostPreview/"
 import {
   collection,
   onSnapshot,

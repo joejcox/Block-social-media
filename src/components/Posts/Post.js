@@ -81,9 +81,9 @@ const Post = () => {
             </header>
           </div>
           <div className="container mx-auto max-w-2xl">
-            <p className="bg-gray-50 rounded-xl p-8 text-gray-700 break-words text-md leading-6">
+            <div className="bg-white rounded-xl p-8 text-gray-700 break-words text-md leading-6">
               {body}
-            </p>
+            </div>
             <footer className="text-center py-8 text-xs text-gray-600">
               Created by{" "}
               <Link
