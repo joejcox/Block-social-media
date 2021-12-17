@@ -64,7 +64,7 @@ const Post = () => {
         />
       ) : (
         <section className="px-6 flex flex-col">
-          <div className="container mx-auto max-w-2xl text-center">
+          <div className="container mx-auto max-w-4xl text-center">
             <header className="mb-8 relative">
               {currentUser !== null && author_id === currentUser.uid && (
                 <span

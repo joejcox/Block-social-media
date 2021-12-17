@@ -4,7 +4,6 @@ import useFirestore from "hooks/useFirestore"
 import { useForm, useFormState } from "react-hook-form"
 import { v4 as uuidv4 } from "uuid"
 import SiteTitle from "components/SiteTitle"
-import Section from "components/Layout/Section"
 import PageTitle from "components/Layout/PageTitle"
 
 const CreatePost = () => {
@@ -40,12 +39,12 @@ const CreatePost = () => {
   const { isSubmitting } = useFormState({ control })
 
   return (
-    <Section>
+    <>
       <SiteTitle title="Create Post | Block." />
-      <div className="container mx-auto max-w-xl">
+      <div className="container mx-auto max-w-4xl">
         <PageTitle mb={10}>Create Post</PageTitle>
         <form
-          className="max-w-2xl mx-auto"
+          className="w-full mx-auto"
           onSubmit={(e) => e.preventDefault()}
           autoComplete="off"
         >
@@ -107,7 +106,7 @@ const CreatePost = () => {
           />
         </form>
       </div>
-    </Section>
+    </>
   )
 }
 

@@ -2,11 +2,11 @@ import { useEffect, useState } from "react"
 import { db } from "lib/firebase"
 import {
   collection,
-  getDocs,
   query,
   where,
   limit,
   orderBy,
+  getDocs,
 } from "firebase/firestore"
 import useFirestore from "hooks/useFirestore"
 import { Link } from "react-router-dom"
@@ -17,8 +17,8 @@ const PostsListLimited = () => {
 
   useEffect(() => {
     if (!userData) return null
+
     const getPosts = async () => {
-      let postsArray = []
       const postsRef = collection(db, "posts")
       const postsQuery = query(
         postsRef,
@@ -27,6 +27,7 @@ const PostsListLimited = () => {
         limit(5)
       )
       const postsSnap = await getDocs(postsQuery)
+      let postsArray = []
 
       postsSnap.forEach((post) => {
         postsArray.push({

@@ -28,10 +28,11 @@ const App = () => {
           <Route path="/" element={<PrivateRoute />}>
             <Route index path="/dashboard" element={<Dashboard />} />
             <Route path="/settings" element={<Settings />} />
+
+            <Route path="/create-post" element={<CreatePost />} />
           </Route>
           <Route path="/user/:user" element={<Profile />} />
           <Route path="/user/:user/posts/:post" element={<Post />} />
-          <Route path="/create-post" element={<CreatePost />} />
 
           <Route path="*" element={<div>404</div>} />
         </Routes>

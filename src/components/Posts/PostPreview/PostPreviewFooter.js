@@ -4,12 +4,12 @@ const PostPreviewFooter = ({ postData }) => {
   const { author, slug, comment_count } = postData
 
   return (
-    <footer className="post-footer px-6 py-4 flex justify-between bg-main-600 text-main-200">
+    <footer className="post-footer px-6 py-4 flex justify-between bg-white text-gray-400 border-t border-gray-100">
       <div className="footer-left">
         Posted by{" "}
         <Link
           to={`/user/${author}`}
-          className="capitalise underline hover:text-main-100"
+          className="text-main-500 font-primary hover:underline"
         >
           {author}
         </Link>
@@ -17,7 +17,7 @@ const PostPreviewFooter = ({ postData }) => {
       <div className="footer-right">
         <Link
           to={`/user/${author}/posts/${slug}`}
-          className="underline hover:text-main-100"
+          className="text-main-500 font-primary hover:underline"
         >
           Comments ({comment_count})
         </Link>
