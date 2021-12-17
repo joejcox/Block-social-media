@@ -17,7 +17,7 @@ const Comment = ({ comment }) => {
   const { date, time } = formatDate(comment.date.seconds)
 
   return (
-    <article className="flex bg-main-100 mb-4 py-6 px-4 rounded-2xl">
+    <article className="flex bg-main-100 border border-main-200 mb-4 py-6 px-4 rounded-2xl">
       <MediaAvatar author={comment.author} avatar={avatar} />
       <div className="flex-1">
         <div className="content">
