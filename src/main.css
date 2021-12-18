@@ -216,10 +216,6 @@ button.user-nav--link {
   background: hsl(0, 16%, 96%);
 }
 
-main {
-  flex: 1;
-}
-
 .profile {
   display: flex;
   flex-direction: column;

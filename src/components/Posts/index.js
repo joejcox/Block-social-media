@@ -8,7 +8,6 @@ import {
   getDocs,
 } from "firebase/firestore"
 import { db } from "lib/firebase"
-// import AllPostsSkeleton from "components/Skeletons/AllPostsSkeleton"
 import LoadingDots from "components/Skeletons/LoadingDots"
 
 const Posts = () => {
@@ -26,7 +25,7 @@ const Posts = () => {
 
         docs.forEach((post) => {
           postsArray.push({
-            id: post.id,
+            post_ref: post.id,
             ...post.data(),
           })
         })
@@ -65,7 +64,6 @@ const Posts = () => {
   }, [posts])
 
   if (loading) return <LoadingDots />
-  // if (loading) return <AllPostsSkeleton />
 
   if (!posts) return null
 
@@ -82,7 +80,7 @@ const Posts = () => {
         <PostPreview
           postData={post}
           avatar={avatar}
-          key={post.id}
+          key={post.post_ref}
           showAvatar={true}
         />
       )

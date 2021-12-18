@@ -118,7 +118,7 @@ const UserContextProvider = ({ children }) => {
     }
   }
 
-  const updatePost = async ({ author, author_id, post_ref, content, tags }) => {
+  const updatePost = async ({ author_id, post_ref, content, tags }) => {
     const { cleanedTitle, formattedSlug } = cleanUpTitle(content.title)
 
     const titleExists = await checkIfUserHasPostWithSameTitle(
@@ -152,7 +152,13 @@ const UserContextProvider = ({ children }) => {
 
   const deletePost = async (id) => {
     try {
-      await deleteDoc(doc(db, "posts", id))
+      const commentsRef = collection(db, "comments")
+      const commentsQuery = query(commentsRef, where("parent_id", "==", id))
+      const querySnapshot = await getDocs(commentsQuery)
+      deleteDoc(doc(db, "posts", id))
+      querySnapshot.forEach((comment) => {
+        deleteDoc(doc(db, "comments", comment.id))
+      })
       return true
     } catch (error) {
       console.log(error)

@@ -97,7 +97,7 @@ const Post = () => {
           </div>
         </section>
       )}
-      <Comments post_id={post_ref} post_author={author} />
+      <Comments author_id={author_id} post_id={post_ref} post_author={author} />
     </>
   )
 }

@@ -10,6 +10,8 @@
 
 # production
 /build
+/src/hooks/usePostAndUser.js
+/src/components/Posts/PostLikes
 
 # misc
 .DS_Store

@@ -44,11 +44,7 @@ const Profile = () => {
     <>
       <SiteTitle title={`${data.username} | Block.`} />
       <ProfileHeader {...data} loading={loading} />
-      <section className="flex px-6">
-        <div className="container mx-auto max-w-2xl">
-          <UserPosts author={data.username} />
-        </div>
-      </section>
+      <UserPosts author={data.username} />
     </>
   )
 }

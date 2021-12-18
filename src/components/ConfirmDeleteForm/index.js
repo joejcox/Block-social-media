@@ -12,7 +12,6 @@ const ConfirmDeleteForm = ({ string, deletePost, close }) => {
   const { isSubmitting } = useFormState({ control })
 
   const onSubmit = async (data) => {
-    console.log(data)
     await deletePost()
   }
 

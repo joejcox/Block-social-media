@@ -3,10 +3,10 @@ import useAuth from "hooks/useAuth"
 import useFirestore from "hooks/useFirestore"
 import Button from "components/Layout/Button"
 import { useForm, useFormState } from "react-hook-form"
-import { v4 as uuidv4 } from "uuid"
+// import { v4 as uuidv4 } from "uuid"
 import MediaAvatar from "components/MediaAvatar"
 
-const CommentForm = ({ post_id, post_author, comment_count }) => {
+const CommentForm = ({ author_id, post_id, post_author, comment_count }) => {
   const { currentUser } = useAuth()
   const { addComment, userData } = useFirestore()
   const [charCount, setCharCount] = useState(0)
@@ -23,7 +23,7 @@ const CommentForm = ({ post_id, post_author, comment_count }) => {
     const commentData = {
       author: userData.username,
       content: data.content,
-      id: uuidv4(),
+      author_id: userData.uid,
       parent_id: post_id,
       reply_to: post_author,
     }

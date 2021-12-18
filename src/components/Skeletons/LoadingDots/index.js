@@ -3,7 +3,7 @@ import styles from "./dots.module.css"
 const LoadingDots = () => (
   <div className="flex justify-center">
     <div
-      class={`${styles.dot_flashing} text-main-700 bg-main-700 mb-10 -mt-10`}
+      className={`${styles.dot_flashing} text-main-700 bg-main-700 mb-10 -mt-10`}
     ></div>
   </div>
 )

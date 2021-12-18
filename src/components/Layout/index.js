@@ -14,7 +14,7 @@ const Layout = ({ children }) => {
             style={{ paddingTop: "70px" }}
           >
             <Header />
-            <main className="main" role="main">
+            <main className="flex-1" role="main">
               {children}
             </main>
 

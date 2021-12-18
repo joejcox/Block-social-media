@@ -6,7 +6,7 @@ import Comment from "./Comment"
 import CommentsList from "./CommentsList"
 import CommentForm from "./CommentForm"
 
-const Comments = ({ post_id, post_author }) => {
+const Comments = ({ author_id, post_id, post_author }) => {
   const { userData } = useFirestore()
   const [comments, setComments] = useState(null)
 
@@ -45,6 +45,7 @@ const Comments = ({ post_id, post_author }) => {
   return (
     <div className="px-6">
       <CommentForm
+        author_id={author_id}
         post_id={post_id}
         post_author={post_author}
         comment_count={comments ? comments.length : 0}

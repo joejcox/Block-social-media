@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react"
 import useFirestore from "hooks/useFirestore"
 import defaultAvatar from "assets/images/avatar_placeholder.png"
-import { ChevronDownIcon, UserIcon } from "@heroicons/react/outline"
+import { ChevronDownIcon, UserIcon, CogIcon } from "@heroicons/react/outline"
 import UserNavLink from "components/Layout/Header/UserNav/UserNavLink"
 import UserNavSignout from "./UserNavSignout"
 
@@ -33,6 +33,7 @@ const UserNav = () => {
 
   return (
     <div className="user-nav relative" ref={nav} onClick={handleClick}>
+      {/* UserNavIdentity component */}
       <div className="user-nav--identity flex items-center cursor-pointer w-auto h-full px-5 border-l border-r border-gray-200">
         <div className="w-8 h-8 mr-0 lg:mr-2 overflow-hidden rounded">
           <img
@@ -46,9 +47,13 @@ const UserNav = () => {
         </span>
         <ChevronDownIcon className="hidden lg:inline-block w-4 ml-1 pt-0.5" />
       </div>
+      {/* UserNavDropdown component */}
       <div className="user-nav--dropdown z-50 bg-white shadow overflow-hidden rounded-bl-md lg:rounded-b-md absolute top-full right-0 lg:left-0 w-48 lg:w-full border-t lg:border-t-0 border-gray-200">
         <UserNavLink icon={UserIcon} route={`user/${userData.username}`}>
           Profile
+        </UserNavLink>
+        <UserNavLink icon={CogIcon} route={`/settings`}>
+          Settings
         </UserNavLink>
         <UserNavSignout />
       </div>
