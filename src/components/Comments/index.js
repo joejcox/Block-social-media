@@ -40,24 +40,20 @@ const Comments = ({ author_id, post_id, post_author }) => {
     return () => unsubscribe()
   }, [post_id])
 
-  if (!userData) return null
-
   return (
     <div className="px-6">
-      <CommentForm
-        author_id={author_id}
-        post_id={post_id}
-        post_author={post_author}
-        comment_count={comments ? comments.length : 0}
-      />
+      {userData && (
+        <CommentForm
+          author_id={author_id}
+          post_id={post_id}
+          post_author={post_author}
+          comment_count={comments ? comments.length : 0}
+        />
+      )}
       <CommentsList comments_count={comments ? comments.length : 0}>
         {comments &&
           comments.map((comment, index) => (
-            <Comment
-              comment={comment}
-              username={userData.username}
-              key={`${userData.username}-${index}`}
-            />
+            <Comment comment={comment} key={`${comment.author}-${index}`} />
           ))}
       </CommentsList>
     </div>

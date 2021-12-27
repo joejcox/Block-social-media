@@ -71,10 +71,11 @@ const Posts = () => {
     return posts.map((post) => {
       if (!users) return null
 
-      const user = users.filter(
+      const user = users.find(
         (user) => user.username.toLowerCase() === post.author.toLowerCase()
       )
-      const avatar = user[0].avatar
+
+      const avatar = user.avatar
 
       return (
         <PostPreview
